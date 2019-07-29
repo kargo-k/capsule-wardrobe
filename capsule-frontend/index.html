@@ -13,13 +13,25 @@
   <main>
     <div>
       <form id='login'>
-        <label>Username: </label><input type='text' name='username' placeholder='username'>
+        <label>Username: </label><input type='text' name='username' placeholder='Username'>
         <input type='submit'>
       </form>
     </div>
 
+    <div id='new-user-modal' class='modal'>
+      <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <p>Looks like you're new here! Please create an account to continue.</p>
+        <form id='new-user'>
+          <label>Username: </label><input type='text' name='username' placeholder='Username'>
+          <label>Location: </label><input type='text' name='location' placeholder='City, State'>
+          <input type='submit'>
+        </form>
+      </div>
+    </div>
+
     <div id="show-user">
-      
+
     </div>
 
   </main>
