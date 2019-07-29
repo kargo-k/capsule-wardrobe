@@ -23,7 +23,6 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update(username: params[:username], location: params[:location])
-    byebug
     render json: @user
   end
 end

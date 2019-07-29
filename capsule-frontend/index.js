@@ -1,5 +1,6 @@
 BASE_URL = 'http://localhost:3000'
 USERS_URL = `${BASE_URL}/users`
+CAPSULES_URL = `${BASE_URL}/capsules`
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -44,6 +45,7 @@ let showNewUserForm = username => {
     }
   }
   let newUserForm = document.getElementById('new-user')
+  newUserForm['username'].value = username
   // add new user from form
   newUserForm.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -88,6 +90,13 @@ let showUser = user => {
     updateUser(user)
   })
 
+  let deleteBtn = document.createElement('button')
+  deleteBtn.innerText = 'Delete Profile'
+  userDiv.appendChild(deleteBtn)
+  deleteBtn.addEventListener('click', function () {
+    deleteUser(user)
+  })
+
   showCapsules(user)
 }
 
@@ -99,14 +108,12 @@ let updateUser = user => {
   updateForm['location'].value = user.location
   updateForm.addEventListener('submit', function (e) {
     e.preventDefault()
-    console.log('inside updateuser method', user)
     patchUser(user)
   })
 }
 
 // patch user
 let patchUser = user => {
-  console.log('inside before patchuser', user)
   let updateForm = document.getElementById('update-user')
   fetch(USERS_URL + `/${user.id}`, {
     method: 'PATCH',
@@ -120,16 +127,24 @@ let patchUser = user => {
       location: updateForm['location'].value
     })
   }).then(resp => resp.json()).then((user) => {
-    console.log('finish update user fetch')
-    console.log('after then patchuser', user)
     document.getElementById('update-user-modal').style.display = 'none'
     showUser(user)
   })
 }
 
+// delete user method
+let deleteUser = user => {
+  return fetch(USERS_URL + `/${user.id}`, {
+    method: 'DELETE'
+  }).then(resp => resp.json()).then(() => {
+    document.getElementById('show-user').innerHTML = ""
+  })
+}
+
+
 // fetch user's capsules
 let fetchCapsules = user => {
-  return fetch(USERS_URL + `/${user.id}`).then(resp => resp.json())
+  return fetch(CAPSULES_URL).then(resp => resp.json())
 }
 
 
