@@ -16,6 +16,7 @@ class CapsulesController < ApplicationController
   end
 
   def create
-    @capsule = Capsule.create(name: params[:name], season: params[:season], style: params[:style])    render json: @capsule
+    @capsule = Capsule.create(name: params[:name], season: params[:season], style: params[:style])
+    render json: @capsule
   end
 end
