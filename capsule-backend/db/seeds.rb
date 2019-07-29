@@ -11,10 +11,10 @@ user1 = User.create(username: 'Kargo', location: 'Seattle')
 user2 = User.create(username: 'Mittens', location: 'Seattle')
 
 #Create dummy capsules
-capsule1 = Capsule.create(user_id: 1, name: 'Spring 2019', season: 'Spring', style: 'Casual')
-capsule2 = Capsule.create(user_id: 1, name: 'Business Guru Outfits', season: 'Fall', style: 'Business Casual')
-capsule3 = Capsule.create(user_id: 2, name: 'Lookin\' Spiffy!', season: 'Summer', style: 'Athleisure')
-capsule4 = Capsule.create(user_id: 2, name: 'My Capsule Collection', season: 'Winter', style: 'Casual')
+capsule1 = Capsule.create(user_id: User.first.id, name: 'Spring 2019', season: 'Spring', style: 'Casual')
+capsule2 = Capsule.create(user_id: User.first.id, name: 'Business Guru Outfits', season: 'Fall', style: 'Business Casual')
+capsule3 = Capsule.create(user_id: User.second.id, name: 'Lookin\' Spiffy!', season: 'Summer', style: 'Athleisure')
+capsule4 = Capsule.create(user_id: User.second.id, name: 'My Capsule Collection', season: 'Winter', style: 'Casual')
 
 #Create dummy articles
 # article1 = Article.create(category: 'shirt', image: 'https://image.uniqlo.com/UQ/ST3/WesternCommon/imagesgoods/418231/item/goods_25_418231.jpg?width=380')
