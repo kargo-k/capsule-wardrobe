@@ -12,19 +12,22 @@
 
 ActiveRecord::Schema.define(version: 2019_07_29_164423) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "articles", force: :cascade do |t|
     t.string "name"
     t.string "category"
     t.string "image"
-    t.float "price"
+    t.string "price"
     t.string "color"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "articles_capsules", id: false, force: :cascade do |t|
-    t.integer "article_id", null: false
-    t.integer "capsule_id", null: false
+    t.bigint "article_id", null: false
+    t.bigint "capsule_id", null: false
     t.index ["article_id", "capsule_id"], name: "index_articles_capsules_on_article_id_and_capsule_id"
   end
 

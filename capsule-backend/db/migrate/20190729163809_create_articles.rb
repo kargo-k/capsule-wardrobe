@@ -4,7 +4,7 @@ class CreateArticles < ActiveRecord::Migration[5.2]
       t.string :name
       t.string :category
       t.string :image
-      t.float :price
+      t.string :price
       t.string :color
       t.timestamps
     end
