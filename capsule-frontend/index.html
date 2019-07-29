@@ -1,11 +1,13 @@
 <!DOCTYPE html>
+
 <head>
   <title>Capsule Wardrobe</title>
   <link rel="stylesheet" href="styles.css">
-  
+
 </head>
+
 <body>
-  
+
   <header>
     <h1> header area </h1>
   </header>
@@ -21,8 +23,20 @@
     <div id='new-user-modal' class='modal'>
       <div class='modal-content'>
         <span class='close'>&times;</span>
-        <p>Looks like you're new here! Please create an account to continue.</p>
+        <p id='form-description'></p>
         <form id='new-user'>
+          <label>Username: </label><input type='text' name='username' placeholder='Username'>
+          <label>Location: </label><input type='text' name='location' placeholder='City, State'>
+          <input type='submit'>
+        </form>
+      </div>
+    </div>
+
+    <div id='update-user-modal' class='modal'>
+      <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <p>Update your user profile</p>
+        <form id='update-user'>
           <label>Username: </label><input type='text' name='username' placeholder='Username'>
           <label>Location: </label><input type='text' name='location' placeholder='City, State'>
           <input type='submit'>
@@ -35,6 +49,6 @@
     </div>
 
   </main>
-  
+
   <script src="./index.js"></script>
 </body>

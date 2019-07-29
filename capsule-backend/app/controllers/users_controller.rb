@@ -6,8 +6,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @capsules = @user.capsules
-    render json: [@user, @capsules]
+    render json: @user
   end
 
   def destroy
@@ -18,6 +17,13 @@ class UsersController < ApplicationController
 
   def create
     @user = User.create(username: params[:username], location: params[:location])
+    render json: @user
+  end
+
+  def update
+    @user = User.find(params[:id])
+    @user.update(username: params[:username], location: params[:location])
+    byebug
     render json: @user
   end
 end

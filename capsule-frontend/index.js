@@ -1,11 +1,11 @@
 BASE_URL = 'http://localhost:3000'
 USERS_URL = `${BASE_URL}/users`
 
-document.addEventListener("DOMContentLoaded", function() {
-  
+document.addEventListener("DOMContentLoaded", function () {
+
   // adding event listener to the submit button on login form
   let loginForm = document.getElementById('login')
-  loginForm.addEventListener('submit', function(e) {
+  loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
     let username = loginForm['username'].value
     checkUser(username)
@@ -32,18 +32,20 @@ let checkUser = username => {
 let showNewUserForm = username => {
   let modal = document.getElementById('new-user-modal')
   let span = document.getElementsByClassName('close')[0]
+  let description = document.getElementById('form-description')
+  description.innerText = 'Looks like you\'re new here! Please create an account to continue.'
   modal.style.display = 'block'
-  span.onclick = function() {
+  span.onclick = function () {
     modal.style.display = 'none'
   }
-  window.onclick = function(e) {
+  window.onclick = function (e) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
   }
   let newUserForm = document.getElementById('new-user')
   // add new user from form
-  newUserForm.addEventListener('submit', function(e) {
+  newUserForm.addEventListener('submit', function (e) {
     e.preventDefault()
     return fetch(USERS_URL, {
       method: 'POST',
@@ -57,9 +59,10 @@ let showNewUserForm = username => {
       })
     }).then(resp => resp.json()).then((user) => {
       document.getElementById('new-user-modal').style.display = 'none'
+      document.getElementById('login')['username'].value = ""
       showUser(user)
     })
-  }) 
+  })
 }
 
 
@@ -77,7 +80,51 @@ let showUser = user => {
   let userh1 = document.createElement('h1')
   userh1.innerText = user.username
   userDiv.appendChild(userh1)
+
+  let editBtn = document.createElement('button')
+  editBtn.innerText = 'Edit Profile'
+  userDiv.appendChild(editBtn)
+  editBtn.addEventListener('click', function () {
+    updateUser(user)
+  })
+
   showCapsules(user)
+}
+
+// update user method
+let updateUser = user => {
+  document.getElementById('update-user-modal').style.display = 'block'
+  let updateForm = document.getElementById('update-user')
+  updateForm['username'].value = user.username
+  updateForm['location'].value = user.location
+  updateForm.addEventListener('submit', function (e) {
+    e.preventDefault()
+    console.log('inside updateuser method', user)
+    patchUser(user)
+  })
+}
+
+// patch user
+let patchUser = user => {
+  console.log('inside before patchuser', user)
+  let updateForm = document.getElementById('update-user')
+  fetch(USERS_URL + `/${user.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: user.id,
+      username: updateForm['username'].value,
+      location: updateForm['location'].value
+    })
+  }).then(resp => resp.json()).then((user) => {
+    console.log('finish update user fetch')
+    console.log('after then patchuser', user)
+    document.getElementById('update-user-modal').style.display = 'none'
+    showUser(user)
+  })
 }
 
 // fetch user's capsules
@@ -85,16 +132,20 @@ let fetchCapsules = user => {
   return fetch(USERS_URL + `/${user.id}`).then(resp => resp.json())
 }
 
+
 // show user's capsules
 let showCapsules = user => {
-  let userData = fetchCapsules(user).then(data => {
-    let userDiv = document.getElementById('show-user')
-    data[1].forEach(capsule => {
-      let capDiv = document.createElement('div')
-      let capH3 = document.createElement('h3')
-      capH3.innerText = capsule.name
-      capDiv.appendChild(capH3)
-      userDiv.appendChild(capDiv)
-    })
-  })
+  console.log('show user\'s capsules')
+  // let userData = fetchCapsules(user).then(data => {
+  //   let userDiv = document.getElementById('show-user')
+  //   if (data[1].length > 0) {
+  //     data[1].forEach(capsule => {
+  //       let capDiv = document.createElement('div')
+  //       let capH3 = document.createElement('h3')
+  //       capH3.innerText = capsule.name
+  //       capDiv.appendChild(capH3)
+  //       userDiv.appendChild(capDiv)
+  //     })
+  //   }
+  // })
 }
