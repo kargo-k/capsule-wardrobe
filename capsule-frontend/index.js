@@ -160,6 +160,7 @@ let fetchCapsules = user => {
 }
 
 // show user's capsules
+// THIS DOESN'T WORK (LINE 169) if you are creating a new user
 let showCapsules = capsules => {
   let userDiv = document.getElementById('show-user')
   let addCapsuleBtn = document.createElement('button')
@@ -186,6 +187,8 @@ let viewCapsule = capsule => {
   let capH3 = document.createElement('h3')
   capH3.innerText = capsule.name
   viewCapsuleDiv.appendChild(capH3)
+
+  // 'add article to capsule' button
   let addBtn = document.createElement('button')
   addBtn.innerText = 'Add Article'
   viewCapsuleDiv.appendChild(addBtn)
@@ -197,6 +200,21 @@ let viewCapsule = capsule => {
     e.preventDefault()
     addArticle(articleForm, capsule)
   })
+
+  // 'edit capsule' button
+  let editBtn = document.createElement('button')
+  editBtn.innerText = 'Edit Capsule'
+  viewCapsuleDiv.appendChild(editBtn)
+  editBtn.addEventListener('click', function (e) {
+    document.getElementById('edit-capsule-modal').style.display = 'block'
+  })
+  let editCapsuleForm = document.getElementById('edit-capsule')
+  editCapsuleForm.addEventListener('submit', function(e) {
+    e.preventDefault()
+    editCapsule(editCapsuleForm, capsule)
+  })
+
+  // 'delete capsule' button
   let deleteBtn = document.createElement('button')
   deleteBtn.innerText = 'Delete Capsule'
   viewCapsuleDiv.appendChild(deleteBtn)
@@ -316,6 +334,27 @@ let createCapsule = (capsuleForm, user_id) => {
     })
   }).then(resp => resp.json()).then(capsule => {
     document.getElementById('add-capsule-modal').style.display = 'none'
+    viewCapsule(capsule)
+  })
+}
+
+// edit capsule from form
+let editCapsule = (editCapsuleForm, capsule) => {
+  return fetch(CAPSULES_URL + `/${capsule.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: capsule.id,
+      name: editCapsuleForm['capsulename'].value,
+      season: editCapsuleForm['selSeason'].value,
+      style: editCapsuleForm['selStyle'].value,
+      user_id: capsule.user_id
+    })
+  }).then(resp => resp.json()).then(capsule => {
+    document.getElementById('edit-capsule-modal').style.display = 'none'
     viewCapsule(capsule)
   })
 }

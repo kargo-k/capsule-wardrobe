@@ -20,4 +20,11 @@ class CapsulesController < ApplicationController
     @capsule = Capsule.create(name: params[:name], season: params[:season], style: params[:style], user_id: params[:user_id])
     render json: @capsule
   end
+
+  def update
+    @capsule = Capsule.find(params[:id])
+    @capsule.update(name: params[:name], season: params[:season], style: params[:style], user_id: params[:user_id])
+    render json: @capsule
+  end
+
 end
