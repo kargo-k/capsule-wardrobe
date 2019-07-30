@@ -305,7 +305,7 @@ let addArticle = (articleForm, capsule) => {
   }).then(resp => resp.json()).then(x => {
     document.getElementById('add-article-modal').style.display = 'none'
     console.log(x)
-    sortArticles(capsule)
+    viewCapsule(capsule)
   })
 }
 
