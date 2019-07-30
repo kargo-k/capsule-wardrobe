@@ -197,6 +197,20 @@ let viewCapsule = capsule => {
     e.preventDefault()
     addArticle(articleForm, capsule)
   })
+  let deleteBtn = document.createElement('button')
+  deleteBtn.innerText = 'Delete Capsule'
+  viewCapsuleDiv.appendChild(deleteBtn)
+  deleteBtn.addEventListener('click', function (e) {
+    fetch(CAPSULES_URL + `/${capsule.id}`, {
+      method: 'DELETE'
+    }).then(res => res.json()).then(x => {
+      fetch(USERS_URL + `/${capsule.user_id}`).then(res => res.json()).then(user => {
+        // clear show capsule div TO DO
+        showUser(user)
+      })
+    })
+  })
+
   sortArticles(capsule)
 }
 
