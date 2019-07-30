@@ -279,7 +279,7 @@ let sortArticles = capsule => {
       let img = document.createElement('img')
       let div
       img.setAttribute('src', article.image)
-      img.addEventListener('click', function (e) { showArticle(article) })
+      img.addEventListener('click', function (e) { showArticle(article, capsule) })
 
       switch (article.category) {
         case "top":
@@ -345,7 +345,7 @@ let addArticle = (articleForm, capsule) => {
 }
 
 //////!-------SHOWING ARTICLE DETAILS -------///////
-let showArticle = article => {
+let showArticle = (article, capsule) => {
   let modal = document.getElementById('show-article-modal')
   let span = modal.getElementsByClassName('close')[0]
   modal.style.display = 'block'
@@ -358,7 +358,8 @@ let showArticle = article => {
     }
   }
 
-  let contentDiv = modal.querySelector('div')
+  let contentDiv = document.getElementById('article-details')
+  contentDiv.innerHTML = ""
 
   let title = document.createElement('h3')
   title.innerText = article.name
@@ -371,8 +372,31 @@ let showArticle = article => {
   let removeBtn = document.createElement('button')
   removeBtn.innerText = 'Remove from Capsule'
   contentDiv.appendChild(removeBtn)
+
+  removeBtn.addEventListener('click', function (e) {
+    removeArticle(article, capsule)
+  })
 }
 
+//////!-------REMOVE AN ARTICLE FROM A CAPSULE -------///////
+let removeArticle = (article, capsule) => {
+  fetch(ARTICLES_URL + `/${article.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: article.id,
+      capsule_id: capsule.id
+    })
+  })
+    .then(res => res.json())
+    .then(data => {
+      viewCapsule(capsule)
+      document.getElementById('show-article-modal').style.display = 'none'
+    })
+}
 
 //////!-------ADDING A NEW CAPSULE -------///////
 
