@@ -99,7 +99,7 @@ let showUser = user => {
   let addCapsuleBtn = document.createElement('button')
   addCapsuleBtn.innerText = 'Create a New Capsule'
   userDiv.appendChild(addCapsuleBtn)
-  addCapsuleBtn.addEventListener('click', function (e) {
+  addCapsuleBtn.addEventListener('click', function(e){
     showNewCapsuleForm(user.id)
   })
 
@@ -166,7 +166,6 @@ let fetchCapsules = user => {
 }
 
 // show user's capsules
-// THIS DOESN'T WORK (showNewCapsuleForm(capsules[0].user_id)) if you are creating a new user
 let showCapsules = capsules => {
   let userDiv = document.getElementById('show-user')
   capsules.forEach(capsule => {
