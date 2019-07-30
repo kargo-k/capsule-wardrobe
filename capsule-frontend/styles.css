@@ -1,3 +1,21 @@
+button {
+  font-size: 0.65em;
+  color: #fff;
+  background-color: green;
+  border-radius: 10px;
+}
+
+@media only screen and (min-width: 500px) {
+  main {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 850px) {
+  main {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+}
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -11,7 +29,7 @@
   background-color: rgb(0, 0, 0); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-​
+
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
@@ -21,7 +39,7 @@
   font-size: 12px;
   width: 50%; /* Could be more or less, depending on screen size */
 }
-​
+
 /* The Close Button */
 .close {
   color: #aaa;
@@ -29,14 +47,10 @@
   font-size: 28px;
   font-weight: bold;
 }
-​
+
 .close:hover,
 .close:focus {
   color: black;
   text-decoration: none;
   cursor: pointer;
-}
-
-.hidden {
-  display: none;
 }

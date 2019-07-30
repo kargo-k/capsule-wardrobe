@@ -21,7 +21,7 @@
     </div>
 
     <div id='new-user-modal' class='modal'>
-      <div class='modal-content'>
+      <div class="modal-content">
         <span class='close'>&times;</span>
         <p id='form-description'></p>
         <form id='new-user'>
@@ -44,19 +44,44 @@
       </div>
     </div>
 
+    <div id='add-article-modal' class='modal'>
+      <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <p>Add a new article!</p>
+        <form id='add-article'>
+          <label>Name: </label><input type='text' name='articlename' placeholder='Article Name'>
+
+          <label>Category: </label><select id='selCategory'>
+            <option value='top'>Top</option>
+            <option value='dress'>Dress</option>
+            <option value='skirt'>Skirt</option>
+            <option value='pants'>Pants</option>
+            <option value='jeans'>Jeans</option>
+            <option value='sweater'>Sweater</option>
+            <option value='shoes'>Shoes</option>
+            <option value='accessory'>Accessory</option>
+          </select>
+
+          <label>Image URL: </label><input type='text' name='image' placeholder='URL'>
+
+          <input type='submit'>
+        </form>
+      </div>
+    </div>
+
     <div id="show-user">
     </div>
 
     <div id="show-capsule">
-      <!-- <div id='top' class='hidden'>top</div>
-      <div id='sweater' class='hidden'>sweater</div>
-      <div id='dress' class='hidden'>dress</div>
-      <div id='pants' class='hidden'>pants</div>
-      <div id='skirt' class='hidden'>skirt</div>
-      <div id='jeans' class='hidden'>jeans</div>
-      <div id='accessory' class='hidden'>accessory</div>
-      <div id='outerwear' class='hidden'>outerwear</div>
-      <div id='shoes' class='hidden'>shoes</div> -->
+      <div id='tops'></div>
+      <div id='sweaters'></div>
+      <div id='pants'></div>
+      <div id='jeans'></div>
+      <div id='skirts'></div>
+      <div id='dresses'></div>
+      <div id='outerwear'></div>
+      <div id='accessories'></div>
+      <div id='shoes'></div>
     </div>
 
   </main>
