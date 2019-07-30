@@ -44,6 +44,31 @@
       </div>
     </div>
 
+    <div id='add-article-modal' class='modal'>
+      <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <p>Add a new article!</p>
+        <form id='add-article'>
+          <label>Name: </label><input type='text' name='articlename' placeholder='Article Name'>
+
+          <label>Category: </label><select id='selCategory'>
+            <option value='top'>Top</option>
+            <option value='dress'>Dress</option>
+            <option value='skirt'>Skirt</option>
+            <option value='pants'>Pants</option>
+            <option value='jeans'>Jeans</option>
+            <option value='sweater'>Sweater</option>
+            <option value='shoes'>Shoes</option>
+            <option value='accessory'>Accessory</option>
+          </select>
+
+          <label>Image URL: </label><input type='text' name='image' placeholder='URL'>
+
+          <input type='submit'>
+        </form>
+      </div>
+    </div>
+
     <div id="show-user">
     </div>
 

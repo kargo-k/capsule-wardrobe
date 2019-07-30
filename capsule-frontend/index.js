@@ -178,6 +178,12 @@ let viewCapsule = capsule => {
   let capH3 = document.createElement('h3')
   capH3.innerText = capsule.name
   viewCapsuleDiv.appendChild(capH3)
+  let addBtn = document.createElement('button')
+  addBtn.innerText = 'Add Article'
+  viewCapsuleDiv.appendChild(addBtn)
+  addBtn.addEventListener('click', function (e) {
+    document.getElementById('add-article-modal').style.display = 'block'
+  })
   sortArticles(capsule)
 }
 
@@ -233,4 +239,9 @@ let sortArticles = capsule => {
       }
     })
   })
+}
+
+//////!-------ADDING A NEW ARTICLE -------///////
+let createArticle = articleForm => {
+
 }
