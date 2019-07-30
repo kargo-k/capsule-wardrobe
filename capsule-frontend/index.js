@@ -96,6 +96,12 @@ let showUser = user => {
   deleteBtn.addEventListener('click', function () {
     deleteUser(user)
   })
+  let addCapsuleBtn = document.createElement('button')
+  addCapsuleBtn.innerText = 'Create a New Capsule'
+  userDiv.appendChild(addCapsuleBtn)
+  addCapsuleBtn.addEventListener('click', function (e) {
+    showNewCapsuleForm(user.id)
+  })
 
   fetchCapsules(user)
 }
@@ -160,6 +166,7 @@ let fetchCapsules = user => {
 }
 
 // show user's capsules
+// THIS DOESN'T WORK (showNewCapsuleForm(capsules[0].user_id)) if you are creating a new user
 let showCapsules = capsules => {
   let userDiv = document.getElementById('show-user')
   capsules.forEach(capsule => {
@@ -180,6 +187,8 @@ let viewCapsule = capsule => {
   let capH3 = document.createElement('h3')
   capH3.innerText = capsule.name
   viewCapsuleDiv.appendChild(capH3)
+
+  // 'add article to capsule' button
   let addBtn = document.createElement('button')
   addBtn.innerText = 'Add Article'
   viewCapsuleDiv.appendChild(addBtn)
@@ -191,6 +200,35 @@ let viewCapsule = capsule => {
     e.preventDefault()
     addArticle(articleForm, capsule)
   })
+
+  // 'edit capsule' button
+  let editBtn = document.createElement('button')
+  editBtn.innerText = 'Edit Capsule'
+  viewCapsuleDiv.appendChild(editBtn)
+  editBtn.addEventListener('click', function (e) {
+    document.getElementById('edit-capsule-modal').style.display = 'block'
+  })
+  let editCapsuleForm = document.getElementById('edit-capsule')
+  editCapsuleForm.addEventListener('submit', function(e) {
+    e.preventDefault()
+    editCapsule(editCapsuleForm, capsule)
+  })
+
+  // 'delete capsule' button
+  let deleteBtn = document.createElement('button')
+  deleteBtn.innerText = 'Delete Capsule'
+  viewCapsuleDiv.appendChild(deleteBtn)
+  deleteBtn.addEventListener('click', function (e) {
+    fetch(CAPSULES_URL + `/${capsule.id}`, {
+      method: 'DELETE'
+    }).then(res => res.json()).then(x => {
+      fetch(USERS_URL + `/${capsule.user_id}`).then(res => res.json()).then(user => {
+        // clear show capsule div TO DO
+        showUser(user)
+      })
+    })
+  })
+
   sortArticles(capsule)
 }
 
@@ -265,5 +303,58 @@ let addArticle = (articleForm, capsule) => {
   }).then(resp => resp.json()).then(x => {
     document.getElementById('add-article-modal').style.display = 'none'
     sortArticles(capsule)
+  })
+}
+
+//////!-------ADDING A NEW CAPSULE -------///////
+
+// show new capsule form
+let showNewCapsuleForm = user_id => {
+  let capsuleForm = document.getElementById('add-capsule')
+  document.getElementById('add-capsule-modal').style.display = 'block'
+  capsuleForm.addEventListener('submit', function(e){
+    e.preventDefault()
+    createCapsule(capsuleForm, user_id)
+  })
+}
+
+// create new capsule from form
+let createCapsule = (capsuleForm, user_id) => {
+  fetch(CAPSULES_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: capsuleForm['capsulename'].value,
+      season: capsuleForm['selSeason'].value,
+      style: capsuleForm['selStyle'].value,
+      user_id: user_id
+    })
+  }).then(resp => resp.json()).then(capsule => {
+    document.getElementById('add-capsule-modal').style.display = 'none'
+    viewCapsule(capsule)
+  })
+}
+
+// edit capsule from form
+let editCapsule = (editCapsuleForm, capsule) => {
+  return fetch(CAPSULES_URL + `/${capsule.id}`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: capsule.id,
+      name: editCapsuleForm['capsulename'].value,
+      season: editCapsuleForm['selSeason'].value,
+      style: editCapsuleForm['selStyle'].value,
+      user_id: capsule.user_id
+    })
+  }).then(resp => resp.json()).then(capsule => {
+    document.getElementById('edit-capsule-modal').style.display = 'none'
+    viewCapsule(capsule)
   })
 }
