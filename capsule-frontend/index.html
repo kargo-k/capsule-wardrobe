@@ -13,12 +13,6 @@
   </header>
 
   <main>
-    <div>
-      <form id='login'>
-        <label>Username: </label><input type='text' name='username' placeholder='Username'>
-        <input type='submit'>
-      </form>
-    </div>
 
     <div id="show-user"></div>
     <div id='capsule-header'></div>
@@ -36,10 +30,20 @@
 
 
     <!-- ALL MODALS BELOW THIS LINE -->
+    <div id='login-modal' class='modal'>
+      <div class="modal-content">
+        <p id='form-description'></p>
+        <form id='login'>
+          <label>Username: </label><input type='text' name='username' placeholder='Username'>
+          <input type='submit'>
+        </form>
+      </div>
+    </div>
+
     <div id='new-user-modal' class='modal'>
       <div class="modal-content">
         <span class='close'>&times;</span>
-        <p id='form-description'></p>
+        <p id='new-user-description'></p>
         <form id='new-user'>
           <label>Username: </label><input type='text' name='username' placeholder='Username'>
           <label>Location: </label><input type='text' name='location' placeholder='City, State'>

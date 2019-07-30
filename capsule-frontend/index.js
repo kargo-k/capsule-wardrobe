@@ -4,16 +4,20 @@ CAPSULES_URL = `${BASE_URL}/capsules`
 ARTICLES_URL = `${BASE_URL}/articles`
 
 document.addEventListener("DOMContentLoaded", function () {
-
-  // adding event listener to the submit button on login form
+  // show login modal on page load 
   let loginForm = document.getElementById('login')
+  let modal = document.getElementById('login-modal')
+  let description = document.getElementById('form-description')
+  description.innerText = 'Enter your username to view your capsules'
+  modal.style.display = 'block'
+  // adding event listener to the submit button on login form
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
     let username = loginForm['username'].value
     loginForm['username'].value = ""
     checkUser(username)
+    modal.style.display = 'none'
   })
-
 });
 
 //////!------- USER CRUD -------///////
@@ -37,7 +41,7 @@ let checkUser = username => {
 let showNewUserForm = username => {
   let modal = document.getElementById('new-user-modal')
   let span = document.getElementsByClassName('close')[0]
-  let description = document.getElementById('form-description')
+  let description = document.getElementById('new-user-description')
   description.innerText = 'Looks like you\'re new here! Please create an account to continue.'
   modal.style.display = 'block'
   span.onclick = function () {
