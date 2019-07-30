@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   loginForm.addEventListener('submit', function (e) {
     e.preventDefault()
     let username = loginForm['username'].value
+    loginForm['username'].value = ""
     checkUser(username)
   })
 
@@ -24,7 +25,6 @@ let checkUser = username => {
       return user.username.toLowerCase() == username.toLowerCase()
     })
     if (user == undefined) {
-      console.log('no such user')
       showNewUserForm(username)
     } else {
       clearCapsuleDiv()
@@ -100,7 +100,7 @@ let showUser = user => {
   let addCapsuleBtn = document.createElement('button')
   addCapsuleBtn.innerText = 'Create a New Capsule'
   userDiv.appendChild(addCapsuleBtn)
-  addCapsuleBtn.addEventListener('click', function(e){
+  addCapsuleBtn.addEventListener('click', function (e) {
     showNewCapsuleForm(user.id)
   })
 
@@ -109,7 +109,17 @@ let showUser = user => {
 
 // update user method
 let updateUser = user => {
-  document.getElementById('update-user-modal').style.display = 'block'
+  let modal = document.getElementById('update-user-modal')
+  let span = modal.getElementsByClassName('close')[0]
+  modal.style.display = 'block'
+  span.onclick = function () {
+    modal.style.display = 'none'
+  }
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = 'none'
+    }
+  }
   let updateForm = document.getElementById('update-user')
   updateForm['username'].value = user.username
   updateForm['location'].value = user.location
@@ -195,7 +205,18 @@ let viewCapsule = capsule => {
   addBtn.innerText = 'Add Article'
   capsuleHeader.appendChild(addBtn)
   addBtn.addEventListener('click', function (e) {
-    document.getElementById('add-article-modal').style.display = 'block'
+
+    let modal = document.getElementById('add-article-modal')
+    let span = modal.getElementsByClassName('close')[0]
+    modal.style.display = 'block'
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+    window.onclick = function (e) {
+      if (e.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
   })
   let articleForm = document.getElementById('add-article')
   articleForm.addEventListener('submit', function (e) {
@@ -208,7 +229,19 @@ let viewCapsule = capsule => {
   editBtn.innerText = 'Edit Capsule'
   capsuleHeader.appendChild(editBtn)
   editBtn.addEventListener('click', function (e) {
-    document.getElementById('edit-capsule-modal').style.display = 'block'
+
+    let modal = document.getElementById('edit-capsule-modal')
+    let span = modal.getElementsByClassName('close')[0]
+    modal.style.display = 'block'
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+    window.onclick = function (e) {
+      if (e.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
+
   })
   let editCapsuleForm = document.getElementById('edit-capsule')
   editCapsuleForm.addEventListener('submit', function (e) {
@@ -246,6 +279,8 @@ let sortArticles = capsule => {
       let img = document.createElement('img')
       let div
       img.setAttribute('src', article.image)
+      img.addEventListener('click', function (e) { showArticle(article) })
+
       switch (article.category) {
         case "top":
           div = document.getElementById('tops')
@@ -309,12 +344,52 @@ let addArticle = (articleForm, capsule) => {
   })
 }
 
+//////!-------SHOWING ARTICLE DETAILS -------///////
+let showArticle = article => {
+  let modal = document.getElementById('show-article-modal')
+  let span = modal.getElementsByClassName('close')[0]
+  modal.style.display = 'block'
+  span.onclick = function () {
+    modal.style.display = 'none'
+  }
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = 'none'
+    }
+  }
+
+  let contentDiv = modal.querySelector('div')
+
+  let title = document.createElement('h3')
+  title.innerText = article.name
+  contentDiv.appendChild(title)
+
+  let img = document.createElement('img')
+  img.setAttribute('src', article.image)
+  contentDiv.appendChild(img)
+
+  let removeBtn = document.createElement('button')
+  removeBtn.innerText = 'Remove from Capsule'
+  contentDiv.appendChild(removeBtn)
+}
+
+
 //////!-------ADDING A NEW CAPSULE -------///////
 
 // show new capsule form
 let showNewCapsuleForm = user_id => {
   let capsuleForm = document.getElementById('add-capsule')
-  document.getElementById('add-capsule-modal').style.display = 'block'
+  let modal = document.getElementById('add-capsule-modal')
+  let span = modal.getElementsByClassName('close')[0]
+  modal.style.display = 'block'
+  span.onclick = function () {
+    modal.style.display = 'none'
+  }
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = 'none'
+    }
+  }
   capsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
     createCapsule(capsuleForm, user_id)
@@ -362,6 +437,8 @@ let editCapsule = (editCapsuleForm, capsule) => {
   })
 }
 
+
+// function to clear the capsule div every time a new capsule is selected, created, or a new user logs in
 function clearCapsuleDiv() {
   let articleImgDiv = document.getElementById('show-article-images')
   let innerDivs = articleImgDiv.childNodes
