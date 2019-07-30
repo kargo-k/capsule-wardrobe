@@ -6,7 +6,8 @@ class CapsulesController < ApplicationController
 
   def show
     @capsule = Capsule.find(params[:id])
-    render json: @capsule
+    @articles = @capsule.articles
+    render json: [@capsule, @articles]
   end
 
   def destroy

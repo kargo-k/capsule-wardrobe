@@ -153,14 +153,12 @@ let fetchCapsules = user => {
       let capsules = data.filter(capsule => {
         return capsule.user_id == user.id
       })
-      console.log(capsules)
       showCapsules(capsules)
     })
 }
 
 // show user's capsules
 let showCapsules = capsules => {
-  console.log(capsules)
   let userDiv = document.getElementById('show-user')
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
@@ -176,9 +174,68 @@ let showCapsules = capsules => {
 
 let viewCapsule = capsule => {
   let viewCapsuleDiv = document.getElementById('show-capsule')
-  viewCapsuleDiv.innerHTML = ""
   let capH3 = document.createElement('h3')
   capH3.innerText = capsule.name
   viewCapsuleDiv.appendChild(capH3)
+  sortArticles(capsule)
+}
 
+//////!-------FETCHING A CAPSULE'S ARTICLES -------///////
+let fetchArticles = capsule => {
+  return fetch(CAPSULES_URL + `/${capsule.id}`)
+    .then(resp => resp.json())
+}
+
+let sortArticles = capsule => {
+  let articles = fetchArticles(capsule).then(articles => {
+    articles[1].forEach(article => {
+      let img = document.createElement('img')
+      img.setAttribute('src', article.image)
+      console.log(article.category)
+      switch (article.category) {
+        case "top":
+          if (document.getElementById('top') == null) {
+            let top = document.createElement('div')
+            top.id = 'top'
+            document.getElementById('show-capsule').appendChild(top)
+          } else {
+            let top = document.getElementById('top')
+          }
+          top.appendChild(img)
+          break;
+        case "dress":
+          document.getElementById('dress').appendChild(img)
+          document.getElementById('dress').style.display = 'block'
+          break;
+        case "skirt":
+          document.getElementById('skirt').appendChild(img)
+          document.getElementById('skirt').style.display = 'block'
+          break;
+        case "pants":
+          document.getElementById('pants').appendChild(img)
+          document.getElementById('pants').style.display = 'block'
+          break;
+        case "sweater":
+          document.getElementById('sweater').appendChild(img)
+          document.getElementById('sweater').style.display = 'block'
+          break;
+        case "jeans":
+          document.getElementById('jeans').appendChild(img)
+          document.getElementById('jeans').style.display = 'block'
+          break;
+        case "shoes":
+          document.getElementById('shoes').appendChild(img)
+          document.getElementById('shoes').style.display = 'block'
+          break;
+        case "accessory":
+          document.getElementById('accessory').appendChild(img)
+          document.getElementById('accessory').style.display = 'block'
+          break;
+        case "outerwear":
+          document.getElementById('outerwear').appendChild(img)
+          document.getElementById('outerwear').style.display = 'block'
+          break;
+      }
+    })
+  })
 }

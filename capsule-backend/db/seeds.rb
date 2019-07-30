@@ -75,3 +75,18 @@ scraper('https://www.uniqlo.com/us/en/women/jeans', 'jeans')
 # sweaters and cardis 
 scraper('https://www.uniqlo.com/us/en/women/sweaters-and-cardigans', 'sweater')
 
+5.times do 
+  capsule1.articles << Article.all.sample
+end
+
+9.times do 
+  capsule2.articles << Article.all.sample
+end
+
+3.times do 
+  capsule3.articles << Article.all.sample
+end
+
+7.times do 
+  capsule4.articles << Article.all.sample
+end
