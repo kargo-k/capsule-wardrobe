@@ -96,6 +96,12 @@ let showUser = user => {
   deleteBtn.addEventListener('click', function () {
     deleteUser(user)
   })
+  let addCapsuleBtn = document.createElement('button')
+  addCapsuleBtn.innerText = 'Create a New Capsule'
+  userDiv.appendChild(addCapsuleBtn)
+  addCapsuleBtn.addEventListener('click', function (e) {
+    showNewCapsuleForm(user.id)
+  })
 
   fetchCapsules(user)
 }
@@ -160,15 +166,9 @@ let fetchCapsules = user => {
 }
 
 // show user's capsules
-// THIS DOESN'T WORK (LINE 169) if you are creating a new user
+// THIS DOESN'T WORK (showNewCapsuleForm(capsules[0].user_id)) if you are creating a new user
 let showCapsules = capsules => {
   let userDiv = document.getElementById('show-user')
-  let addCapsuleBtn = document.createElement('button')
-  addCapsuleBtn.innerText = 'Create a New Capsule'
-  userDiv.appendChild(addCapsuleBtn)
-  addCapsuleBtn.addEventListener('click', function(e){
-    showNewCapsuleForm(capsules[0].user_id)
-  })
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
     let capH3 = document.createElement('h3')
