@@ -167,7 +167,8 @@ let fetchCapsules = user => {
 
 // show user's capsules
 let showCapsules = capsules => {
-  let userDiv = document.getElementById('show-user')
+  let capsulesList = document.getElementById('capsule-list')
+  capsulesList.innerHTML = ''
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
     let capH3 = document.createElement('h3')
@@ -176,7 +177,7 @@ let showCapsules = capsules => {
       viewCapsule(capsule)
     })
     capDiv.appendChild(capH3)
-    userDiv.appendChild(capDiv)
+    capsulesList.appendChild(capDiv)
   })
 }
 
@@ -359,8 +360,11 @@ let editCapsule = (editCapsuleForm, capsule) => {
   }).then(resp => resp.json()).then(capsule => {
     document.getElementById('edit-capsule-modal').style.display = 'none'
     viewCapsule(capsule)
+    fetchCapsules({id: capsule.user_id})
   })
 }
+
+
 
 function clearCapsuleDiv() {
   let articleImgDiv = document.getElementById('show-article-images')
