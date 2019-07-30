@@ -27,6 +27,7 @@ let checkUser = username => {
       console.log('no such user')
       showNewUserForm(username)
     } else {
+      clearCapsuleDiv()
       showUser(user)
     }
   })
