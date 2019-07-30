@@ -162,6 +162,12 @@ let fetchCapsules = user => {
 // show user's capsules
 let showCapsules = capsules => {
   let userDiv = document.getElementById('show-user')
+  let addCapsuleBtn = document.createElement('button')
+  addCapsuleBtn.innerText = 'Create a New Capsule'
+  userDiv.appendChild(addCapsuleBtn)
+  addCapsuleBtn.addEventListener('click', function(e){
+    showNewCapsuleForm(capsules[0].user_id)
+  })
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
     let capH3 = document.createElement('h3')
@@ -265,5 +271,37 @@ let addArticle = (articleForm, capsule) => {
   }).then(resp => resp.json()).then(x => {
     document.getElementById('add-article-modal').style.display = 'none'
     sortArticles(capsule)
+  })
+}
+
+//////!-------ADDING A NEW CAPSULE -------///////
+
+// show new capsule form
+let showNewCapsuleForm = user_id => {
+  let capsuleForm = document.getElementById('add-capsule')
+  document.getElementById('add-capsule-modal').style.display = 'block'
+  capsuleForm.addEventListener('submit', function(e){
+    e.preventDefault()
+    createCapsule(capsuleForm, user_id)
+  })
+}
+
+// create new capsule from form
+let createCapsule = (capsuleForm, user_id) => {
+  fetch(CAPSULES_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: capsuleForm['capsulename'].value,
+      season: capsuleForm['selSeason'].value,
+      style: capsuleForm['selStyle'].value,
+      user_id: user_id
+    })
+  }).then(resp => resp.json()).then(capsule => {
+    document.getElementById('add-capsule-modal').style.display = 'none'
+    viewCapsule(capsule)
   })
 }
