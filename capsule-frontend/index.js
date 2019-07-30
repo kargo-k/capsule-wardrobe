@@ -194,13 +194,9 @@ let sortArticles = capsule => {
       console.log(article.category)
       switch (article.category) {
         case "top":
-          if (document.getElementById('top') == null) {
-            let top = document.createElement('div')
-            top.id = 'top'
-            document.getElementById('show-capsule').appendChild(top)
-          } else {
-            let top = document.getElementById('top')
-          }
+          //! fix me, please  
+          let top = document.getElementById('top')
+          document.getElementById('show-capsule').appendChild(top)
           top.appendChild(img)
           break;
         case "dress":
