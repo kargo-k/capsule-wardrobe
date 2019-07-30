@@ -135,7 +135,8 @@ let patchUser = user => {
 let deleteUser = user => {
   return fetch(USERS_URL + `/${user.id}`, {
     method: 'DELETE'
-  }).then(resp => resp.json()).then(() => {
+  }).then(resp => resp.json()).then((allUsers) => {
+    console.log(allUsers)
     document.getElementById('show-user').innerHTML = ""
   })
 }
@@ -187,49 +188,47 @@ let fetchArticles = capsule => {
 }
 
 let sortArticles = capsule => {
-  let articles = fetchArticles(capsule).then(articles => {
+  fetchArticles(capsule).then(articles => {
     articles[1].forEach(article => {
       let img = document.createElement('img')
+      let div
       img.setAttribute('src', article.image)
-      console.log(article.category)
       switch (article.category) {
         case "top":
-          //! fix me, please  
-          let top = document.getElementById('top')
-          document.getElementById('show-capsule').appendChild(top)
-          top.appendChild(img)
+          div = document.getElementById('tops')
+          div.appendChild(img)
           break;
         case "dress":
-          document.getElementById('dress').appendChild(img)
-          document.getElementById('dress').style.display = 'block'
+          div = document.getElementById('dresses')
+          div.appendChild(img)
           break;
         case "skirt":
-          document.getElementById('skirt').appendChild(img)
-          document.getElementById('skirt').style.display = 'block'
+          div = document.getElementById('skirts')
+          div.appendChild(img)
           break;
         case "pants":
-          document.getElementById('pants').appendChild(img)
-          document.getElementById('pants').style.display = 'block'
+          div = document.getElementById('pants')
+          div.appendChild(img)
           break;
         case "sweater":
-          document.getElementById('sweater').appendChild(img)
-          document.getElementById('sweater').style.display = 'block'
+          div = document.getElementById('sweaters')
+          div.appendChild(img)
           break;
         case "jeans":
-          document.getElementById('jeans').appendChild(img)
-          document.getElementById('jeans').style.display = 'block'
+          div = document.getElementById('jeans')
+          div.appendChild(img)
           break;
         case "shoes":
-          document.getElementById('shoes').appendChild(img)
-          document.getElementById('shoes').style.display = 'block'
+          div = document.getElementById('shoes')
+          div.appendChild(img)
           break;
         case "accessory":
-          document.getElementById('accessory').appendChild(img)
-          document.getElementById('accessory').style.display = 'block'
+          div = document.getElementById('accessories')
+          div.appendChild(img)
           break;
         case "outerwear":
-          document.getElementById('outerwear').appendChild(img)
-          document.getElementById('outerwear').style.display = 'block'
+          div = document.getElementById('outerwear')
+          div.appendChild(img)
           break;
       }
     })

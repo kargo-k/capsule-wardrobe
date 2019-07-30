@@ -5,11 +5,6 @@ button {
   border-radius: 10px;
 }
 
-button.release {
-  float: right;
-  background-color: #e1332d;
-}
-
 @media only screen and (min-width: 500px) {
   main {
     grid-template-columns: 1fr 1fr;
