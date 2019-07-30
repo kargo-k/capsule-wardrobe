@@ -1,6 +1,7 @@
 BASE_URL = 'http://localhost:3000'
 USERS_URL = `${BASE_URL}/users`
 CAPSULES_URL = `${BASE_URL}/capsules`
+ARTICLES_URL = `${BASE_URL}/articles`
 
 document.addEventListener("DOMContentLoaded", function () {
 
@@ -173,6 +174,7 @@ let showCapsules = capsules => {
   })
 }
 
+// view specific capsule
 let viewCapsule = capsule => {
   let viewCapsuleDiv = document.getElementById('show-capsule')
   let capH3 = document.createElement('h3')
@@ -183,6 +185,11 @@ let viewCapsule = capsule => {
   viewCapsuleDiv.appendChild(addBtn)
   addBtn.addEventListener('click', function (e) {
     document.getElementById('add-article-modal').style.display = 'block'
+  })
+  let articleForm = document.getElementById('add-article')
+  articleForm.addEventListener('submit', function(e){
+    e.preventDefault()
+    addArticle(articleForm, capsule)
   })
   sortArticles(capsule)
 }
@@ -242,6 +249,21 @@ let sortArticles = capsule => {
 }
 
 //////!-------ADDING A NEW ARTICLE -------///////
-let createArticle = articleForm => {
-
+let addArticle = (articleForm, capsule) => {
+  fetch(ARTICLES_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: articleForm['articlename'].value,
+      category: articleForm['selCategory'].value,
+      image: articleForm['image'].value,
+      capsule_id: capsule.id
+    })
+  }).then(resp => resp.json()).then(x => {
+    document.getElementById('add-article-modal').style.display = 'none'
+    sortArticles(capsule)
+  })
 }

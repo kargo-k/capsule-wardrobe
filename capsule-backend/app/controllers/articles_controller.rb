@@ -17,6 +17,8 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.create(name: params[:name], category: params[:category], image: params[:image])
+    @capsule = Capsule.find(params[:capsule_id])
+    @capsule.articles << @article
     render json: @article
   end
 
