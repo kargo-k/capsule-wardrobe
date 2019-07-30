@@ -1,3 +1,20 @@
+/* Coolors Exported Palette - coolors.co/f55d3e-878e88-f7cb15-ffffff-76bed0 */
+
+/* hex */
+/* orange soda: f55d3e
+gray: 878e88
+yellow: f7cb15
+white: ffffff
+dark sky blue: 76bed0
+
+/* RGB */
+/* orange soda: rgba(245, 93, 62, 1); */
+/* mummy's tomb: rgba(135, 142, 136, 1); */
+/* yellow: rgba(247, 203, 21, 1); */
+/* white: rgba(255, 255, 255, 1); */
+/* dark sky blue: rgba(118, 190, 208, 1); */ 
+
+
 button {
   font-size: 0.65em;
   color: #fff;
@@ -53,4 +70,8 @@ button {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+#capsule-header {
+  border: 2px solid black;
 }

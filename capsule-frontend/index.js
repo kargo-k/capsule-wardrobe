@@ -152,7 +152,6 @@ let deleteUser = user => {
 
 
 //////!------- CAPSULE CRUD -------///////
-
 // fetch user's capsules
 let fetchCapsules = user => {
   fetch(CAPSULES_URL)
@@ -183,20 +182,23 @@ let showCapsules = capsules => {
 
 // view specific capsule
 let viewCapsule = capsule => {
-  let viewCapsuleDiv = document.getElementById('show-capsule')
+
+  clearCapsuleDiv()
+
+  let capsuleHeader = document.getElementById('capsule-header')
   let capH3 = document.createElement('h3')
   capH3.innerText = capsule.name
-  viewCapsuleDiv.appendChild(capH3)
+  capsuleHeader.appendChild(capH3)
 
   // 'add article to capsule' button
   let addBtn = document.createElement('button')
   addBtn.innerText = 'Add Article'
-  viewCapsuleDiv.appendChild(addBtn)
+  capsuleHeader.appendChild(addBtn)
   addBtn.addEventListener('click', function (e) {
     document.getElementById('add-article-modal').style.display = 'block'
   })
   let articleForm = document.getElementById('add-article')
-  articleForm.addEventListener('submit', function(e){
+  articleForm.addEventListener('submit', function (e) {
     e.preventDefault()
     addArticle(articleForm, capsule)
   })
@@ -204,12 +206,12 @@ let viewCapsule = capsule => {
   // 'edit capsule' button
   let editBtn = document.createElement('button')
   editBtn.innerText = 'Edit Capsule'
-  viewCapsuleDiv.appendChild(editBtn)
+  capsuleHeader.appendChild(editBtn)
   editBtn.addEventListener('click', function (e) {
     document.getElementById('edit-capsule-modal').style.display = 'block'
   })
   let editCapsuleForm = document.getElementById('edit-capsule')
-  editCapsuleForm.addEventListener('submit', function(e) {
+  editCapsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
     editCapsule(editCapsuleForm, capsule)
   })
@@ -217,13 +219,13 @@ let viewCapsule = capsule => {
   // 'delete capsule' button
   let deleteBtn = document.createElement('button')
   deleteBtn.innerText = 'Delete Capsule'
-  viewCapsuleDiv.appendChild(deleteBtn)
+  capsuleHeader.appendChild(deleteBtn)
   deleteBtn.addEventListener('click', function (e) {
     fetch(CAPSULES_URL + `/${capsule.id}`, {
       method: 'DELETE'
     }).then(res => res.json()).then(x => {
       fetch(USERS_URL + `/${capsule.user_id}`).then(res => res.json()).then(user => {
-        // clear show capsule div TO DO
+        clearCapsuleDiv()
         showUser(user)
       })
     })
@@ -302,6 +304,7 @@ let addArticle = (articleForm, capsule) => {
     })
   }).then(resp => resp.json()).then(x => {
     document.getElementById('add-article-modal').style.display = 'none'
+    console.log(x)
     sortArticles(capsule)
   })
 }
@@ -312,7 +315,7 @@ let addArticle = (articleForm, capsule) => {
 let showNewCapsuleForm = user_id => {
   let capsuleForm = document.getElementById('add-capsule')
   document.getElementById('add-capsule-modal').style.display = 'block'
-  capsuleForm.addEventListener('submit', function(e){
+  capsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
     createCapsule(capsuleForm, user_id)
   })
@@ -357,4 +360,17 @@ let editCapsule = (editCapsuleForm, capsule) => {
     document.getElementById('edit-capsule-modal').style.display = 'none'
     viewCapsule(capsule)
   })
+}
+
+function clearCapsuleDiv() {
+  let articleImgDiv = document.getElementById('show-article-images')
+  let innerDivs = articleImgDiv.childNodes
+
+  innerDivs.forEach(node => {
+    if (node.tagName == 'DIV') {
+      node.innerText = ""
+    }
+  })
+
+  document.getElementById('capsule-header').innerHTML = ""
 }
