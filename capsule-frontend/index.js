@@ -166,8 +166,13 @@ let fetchCapsules = user => {
 
 // show user's capsules
 let showCapsules = capsules => {
+<<<<<<< HEAD
+  let capsulesList = document.getElementById('capsule-list')
+  capsulesList.innerHTML = ''
+=======
   let capsuleBarDiv = document.getElementById('capsule-bar')
   capsuleBarDiv.innerHTML = ""
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
     let capBtn = document.createElement('button')
@@ -176,6 +181,10 @@ let showCapsules = capsules => {
     capBtn.addEventListener('click', function (e) {
       viewCapsule(capsule)
     })
+<<<<<<< HEAD
+    capDiv.appendChild(capH3)
+    capsulesList.appendChild(capDiv)
+=======
     capDiv.appendChild(capBtn)
     capsuleBarDiv.appendChild(capDiv)
   })
@@ -185,6 +194,7 @@ let showCapsules = capsules => {
   capsuleBarDiv.appendChild(addCapsuleBtn)
   addCapsuleBtn.addEventListener('click', function (e) {
     showNewCapsuleForm(user.id)
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
   })
 
 }
@@ -337,7 +347,6 @@ let addArticle = (articleForm, capsule) => {
     })
   }).then(resp => resp.json()).then(x => {
     document.getElementById('add-article-modal').style.display = 'none'
-    console.log(x)
     viewCapsule(capsule)
   })
 }
@@ -456,11 +465,16 @@ let editCapsule = (editCapsuleForm, capsule) => {
   }).then(resp => resp.json()).then(capsule => {
     document.getElementById('edit-capsule-modal').style.display = 'none'
     viewCapsule(capsule)
+    fetchCapsules({id: capsule.user_id})
   })
 }
 
 
+<<<<<<< HEAD
+
+=======
 // function to clear the capsule div every time a new capsule is selected, created, or a new user logs in
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
 function clearCapsuleDiv() {
   let articleImgDiv = document.getElementById('show-article-imgs')
   let innerDivs = articleImgDiv.childNodes

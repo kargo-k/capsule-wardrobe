@@ -36,57 +36,55 @@ capsule4 = Capsule.create(user_id: User.second.id, name: 'My Capsule Collection'
 
 def scraper(url, category)
 
-  output = {}
-
   doc = Nokogiri::HTML(open(url))
-  product_tile = doc.css("div.product-tile-info")
-  
-  product_tile.each do |product|
-    article_name = product.css("div.product-name a[title]").text.strip
-    article_image = product.css("div.product-image a img")
-    article_price = product.css("div.product-pricing span.product-sales-price").text
-    output[article_name.to_sym] = {
-      :article_image => article_image
-    }
-    article_image = output.values[0].values[0][0].values[0]
-    Article.create(name: article_name, image: article_image, price: article_price, category: category)
+  search_results = doc.css("ul.search-result-items")
+
+  search_results.each do |result|
+    article_grid = result.css('div.product-tile-info')
+    article_grid.each_with_index do |article, index|
+      article_name = article.css("div.product-name a[title]").text.strip
+      article_image = article.css("div.product-image a.thumb-link img")
+      image = article_image.xpath('//div["product-image"]/a/img/@src')[index]
+      article_price = article.css("div.product-pricing span.product-sales-price").text
+      Article.create(name: article_name, image: image, price: article_price, category: category)
+    end
   end
-  output
 end
 
-# t-shirts and tops page
+
+# t-shirts and tops
 scraper('https://www.uniqlo.com/us/en/women/t-shirts-and-tops', 'top')
 
-# shirts and blouses
+# # shirts and blouses
 scraper('https://www.uniqlo.com/us/en/women/shirts-and-blouses', 'top')
 
-# all dresses and jumpsuits
+# # all dresses and jumpsuits
 scraper('https://www.uniqlo.com/us/en/women/dresses-and-jumpsuits', 'dress')
 
-# skirts
+# # skirts
 scraper('https://www.uniqlo.com/us/en/women/skirts', 'skirt')
 
-# pants
+# # pants
 scraper('https://www.uniqlo.com/us/en/women/pants', 'pants')
 
-# jeans
+# # jeans
 scraper('https://www.uniqlo.com/us/en/women/jeans', 'jeans')
 
-# sweaters and cardis 
+# # sweaters and cardis 
 scraper('https://www.uniqlo.com/us/en/women/sweaters-and-cardigans', 'sweater')
 
-5.times do 
+# 5.times do 
   capsule1.articles << Article.all.sample
-end
+# end
 
-9.times do 
+# 9.times do 
   capsule2.articles << Article.all.sample
-end
+# end
 
-3.times do 
+# 3.times do 
   capsule3.articles << Article.all.sample
-end
+# end
 
-7.times do 
+# 7.times do 
   capsule4.articles << Article.all.sample
-end
+# end
