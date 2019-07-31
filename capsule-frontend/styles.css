@@ -31,7 +31,7 @@ img {
   max-width: 120px;
   max-height: 120px;
   margin: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: inline;
 }
 #show-article-modal img{
@@ -229,16 +229,31 @@ div.form {
   text-decoration: none;
   cursor: pointer;
 }
+
+#bottom-container h3 {
+  font-family: 'Raleway', sans-serif;
+  color: #76bed0;
+  border-top: 2px solid #878e88;
+  margin: 10px 10px 0px 0px;
+}
 #carousel-container {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  height: 150px;
+  align-items: center
 }
 #carousel-container > div {
   display: inline;
   flex: 0 0 auto;
 }
 #carousel-container img {
-  max-width: 80px;
-  max-height: 80px;
+  max-width: 100px;
+  max-height: 100px;
+}
+.zoom {
+  transition: transform .2s; /*animation*/
+}
+.zoom:hover {
+  transform: scale(1.5);
 }

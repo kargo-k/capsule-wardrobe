@@ -17,8 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.style.display = 'none'
   })
 
-  fetchAllArticles()
-
 });
 
 //////!------- USER CRUD -------///////
@@ -293,6 +291,8 @@ let viewCapsule = capsule => {
 
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
+
+  fetchAllArticles(capsule)
 }
 
 //////!-------FETCHING A CAPSULE'S ARTICLES -------///////
@@ -511,21 +511,26 @@ function clearCapsuleDiv() {
 }
 
 //! POPULATING THE CAROUSEL WITH DIVS FOR EACH ARTICLE
-function fetchAllArticles() {
+function fetchAllArticles(capsule) {
   fetch(ARTICLES_URL)
     .then(resp => resp.json())
-    .then(renderCarousel)
+    .then(allArticles => {
+      renderCarousel(allArticles, capsule)
+    })
 }
 
-let renderCarousel = allArticles => {
+let renderCarousel = (allArticles, capsule) => {
   let carouselDiv = document.getElementById('carousel-container')
+  carouselDiv.innerHTML = ''
   allArticles.forEach(article => {
     let div = document.createElement('div')
-    div.className = 'card'
+    div.className = 'zoom'
     carouselDiv.appendChild(div)
     let img = document.createElement('img')
     img.setAttribute('src', article.image)
     div.appendChild(img)
+    img.addEventListener('click', showArticle(article, capsule))
+
   })
 
 }
