@@ -57,7 +57,6 @@ h1 {
   color: #76bed0;
   margin-right: 15px;
 }
-
 header h1 {
   font-family: 'Raleway', sans-serif;
   margin: 15px 15px 0px 10px;
@@ -66,7 +65,7 @@ header {
   display: flex;
   align-items: baseline;
   background: #fff;
-  border-bottom: #878e88 3px solid;
+  border-bottom: #878e88 2px solid;
   margin: 0;
   height: fit-content;
   justify-content: space-between;
@@ -81,11 +80,13 @@ header {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
+  border: 2px solid #f7cb15;
 }
 #user-name {
   font-family: 'Raleway', sans-serif;
   color: #f55d3e;
   margin: 0;
+  padding: 10px 5px;
 }
 #button-list > button {
   min-width: 65px;
@@ -113,7 +114,7 @@ header {
   background-color: rgb(255, 255, 255); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
 }
-#login-modal{
+#login-modal, #new-user-modal {
   display: none; /* Hidden by default */
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
@@ -159,6 +160,6 @@ header {
 }
 
 #capsule-header {
-  border-bottom: 3px solid #878e88;
+  border-bottom: 2px solid #878e88;
 }
 
