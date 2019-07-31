@@ -203,22 +203,36 @@ let viewCapsule = capsule => {
   addBtn.innerText = 'Add Article'
   addBtn.className = 'highlight-button'
   addBtn.addEventListener('click', function (e) {
-    let modal = document.getElementById('add-article-modal')
+    if (articleCount < 33) {
+      let modal = document.getElementById('add-article-modal')
+      let span = modal.getElementsByClassName('close')[0]
+      modal.style.display = 'block'
+      span.onclick = function () {
+        modal.style.display = 'none'
+      }
+      window.onclick = function (e) {
+        if (e.target == modal) {
+          modal.style.display = 'none'
+        }
+      }
+    let articleForm = document.getElementById('add-article')
+    articleForm.addEventListener('submit', function (e) {
+      e.preventDefault()
+      addArticle(articleForm, capsule)
+    })
+  } else {
+    let modal = document.getElementById('capsule-full-modal')
     let span = modal.getElementsByClassName('close')[0]
     modal.style.display = 'block'
     span.onclick = function () {
       modal.style.display = 'none'
-    }
+      }
     window.onclick = function (e) {
       if (e.target == modal) {
         modal.style.display = 'none'
+        }
       }
     }
-  })
-  let articleForm = document.getElementById('add-article')
-  articleForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    addArticle(articleForm, capsule)
   })
 
   // 'edit capsule' button
@@ -273,9 +287,11 @@ let fetchArticles = capsule => {
 
 let sortArticles = capsule => {
   fetchArticles(capsule).then(articles => {
+    articleCount = 0
     articles[1].forEach(article => {
       let img = document.createElement('img')
       let div
+      articleCount ++
       img.setAttribute('src', article.image)
       img.addEventListener('click', function (e) { showArticle(article, capsule) })
 
@@ -318,6 +334,7 @@ let sortArticles = capsule => {
           break;
       }
     })
+    return articleCount
   })
 }
 
@@ -473,3 +490,4 @@ function clearCapsuleDiv() {
 
   document.getElementById('show-capsule-details').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
 }
+
