@@ -203,22 +203,36 @@ let viewCapsule = capsule => {
   addBtn.innerText = 'Add Article'
   addBtn.className = 'highlight-button'
   addBtn.addEventListener('click', function (e) {
-    let modal = document.getElementById('add-article-modal')
+    if (articleCount < 33) {
+      let modal = document.getElementById('add-article-modal')
+      let span = modal.getElementsByClassName('close')[0]
+      modal.style.display = 'block'
+      span.onclick = function () {
+        modal.style.display = 'none'
+      }
+      window.onclick = function (e) {
+        if (e.target == modal) {
+          modal.style.display = 'none'
+        }
+      }
+    let articleForm = document.getElementById('add-article')
+    articleForm.addEventListener('submit', function (e) {
+      e.preventDefault()
+      addArticle(articleForm, capsule)
+    })
+  } else {
+    let modal = document.getElementById('capsule-full-modal')
     let span = modal.getElementsByClassName('close')[0]
     modal.style.display = 'block'
     span.onclick = function () {
       modal.style.display = 'none'
-    }
+      }
     window.onclick = function (e) {
       if (e.target == modal) {
         modal.style.display = 'none'
+        }
       }
     }
-  })
-  let articleForm = document.getElementById('add-article')
-  articleForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    addArticle(articleForm, capsule)
   })
 
   // 'edit capsule' button
@@ -326,36 +340,22 @@ let sortArticles = capsule => {
 
 //////!-------ADDING A NEW ARTICLE -------///////
 let addArticle = (articleForm, capsule) => {
-  if (articleCount < 33) {
-    fetch(ARTICLES_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify({
-        name: articleForm['articlename'].value,
-        category: articleForm['selCategory'].value,
-        image: articleForm['image'].value,
-        capsule_id: capsule.id
-      })
-    }).then(resp => resp.json()).then(x => {
-      document.getElementById('add-article-modal').style.display = 'none'
-      viewCapsule(capsule)
+  fetch(ARTICLES_URL, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      name: articleForm['articlename'].value,
+      category: articleForm['selCategory'].value,
+      image: articleForm['image'].value,
+      capsule_id: capsule.id
     })
-  } else {
-    let modal = document.getElementById('capsule-full-modal')
-    let span = modal.getElementsByClassName('close')[0]
-    modal.style.display = 'block'
-    span.onclick = function () {
-      modal.style.display = 'none'
-    }
-    window.onclick = function (e) {
-      if (e.target == modal) {
-        modal.style.display = 'none'
-      }
-    }
-  }
+  }).then(resp => resp.json()).then(x => {
+    document.getElementById('add-article-modal').style.display = 'none'
+    viewCapsule(capsule)
+  })
 }
 
 //////!-------SHOWING ARTICLE DETAILS -------///////
