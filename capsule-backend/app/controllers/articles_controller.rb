@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-    def index
+  def index
     @articles = Article.all
     render json: @articles
   end
@@ -19,6 +19,13 @@ class ArticlesController < ApplicationController
     @article = Article.create(name: params[:name], category: params[:category], image: params[:image])
     @capsule = Capsule.find(params[:capsule_id])
     @capsule.articles << @article
+    render json: @article
+  end
+
+  def update
+    @article = Article.find(params[:id])
+    @capsule = @article.capsules.find(params[:capsule_id])
+    @article.capsules.delete(@capsule)
     render json: @article
   end
 

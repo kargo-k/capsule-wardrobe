@@ -36,26 +36,21 @@ capsule4 = Capsule.create(user_id: User.second.id, name: 'My Capsule Collection'
 
 def scraper(url, category)
 
-  output = {}
   doc = Nokogiri::HTML(open(url))
   search_results = doc.css("ul.search-result-items")
-  
-  search_results.each do |result|
-    article_grid = result.css('li.grid-tile div.product-tile div.product-tile-info')
-      article_grid.each do |article|
-        article_name = article_grid.css("div.product-name a[title]").text.strip
-        article_image = article_grid.css("div.product-image a img")
-        article_price = article_grid.css("div.product-pricing span.product-sales-price").text
-        output[article_name.to_sym] = {
-          :article_image => article_image
-        }
-        article_image = output.values[0].values[0][0].values[0]
-        Article.create(name: article_name, image: article_image, price: article_price, category: category)
-      end
-    
-  end
 
+  search_results.each do |result|
+    article_grid = result.css('div.product-tile-info')
+    article_grid.each_with_index do |article, index|
+      article_name = article.css("div.product-name a[title]").text.strip
+      article_image = article.css("div.product-image a.thumb-link img")
+      image = article_image.xpath('//div["product-image"]/a/img/@src')[index]
+      article_price = article.css("div.product-pricing span.product-sales-price").text
+      Article.create(name: article_name, image: image, price: article_price, category: category)
+    end
+  end
 end
+
 
 # t-shirts and tops
 scraper('https://www.uniqlo.com/us/en/women/t-shirts-and-tops', 'top')

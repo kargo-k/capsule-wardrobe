@@ -9,49 +9,104 @@
 <body>
 
   <header>
-    <h1> header area </h1>
+    <div>
+      <h1>capsule</h1>
+      <div class='subtitle'>a tool for visualizing and building your capsule wardrobe</div>
+    </div>
+    <div id='user-bar'>
+      <div>
+        <h2 id='user-name'></h2>
+      </div>
+      <div id='button-list'></div>
+    </div>
   </header>
 
   <main>
-    <div>
-      <form id='login'>
-        <label>Username: </label><input type='text' name='username' placeholder='Username'>
-        <input type='submit'>
-      </form>
+    <!-- list of buttons for each capsule the user has -->
+    <div id='capsule-bar'></div>
+
+    <!-- section for showing a specific capsule -->
+    <div id='capsule-container'>
+      <!-- right side shows capsule name, details, and add article -->
+      <div id='show-capsule-details'> </div>
+      <!-- left side shows all the article images -->
+      <div id='show-article-imgs'>
+        <span class='article' id='tops'></span>
+        <span class='article' id='sweaters'></span>
+        <span class='article' id='pants'></span>
+        <span class='article' id='jeans'></span>
+        <span class='article' id='skirts'></span>
+        <span class='article' id='dresses'></span>
+        <span class='article' id='outerwear'></span>
+        <span class='article' id='accessories'></span>
+        <span class='article' id='shoes'></span>
+      </div>
     </div>
 
+<<<<<<< HEAD
 
     <div id="show-user"></div>
     <div id='capsule-list'></div>
     <div id='capsule-header'></div>
 
 <!---------  NEW USER MODAL ----------->
+=======
+    <!-- ALL MODALS BELOW THIS LINE -->
+    <div id='login-modal' class='modal'>
+      <div class="modal-content">
+        <div>
+          <h1>capsule</h1>
+        </div>
+        <div>
+          <p id='form-description'>Welcome! Enter your username below to view your capsules.</p>
+          <form id='login'>
+            <input type='text' name='username' placeholder='Username'>
+            <input type='submit' class='form-submit-button'>
+          </form>
+        </div>
+      </div>
+    </div>
+
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
     <div id='new-user-modal' class='modal'>
       <div class="modal-content">
-        <span class='close'>&times;</span>
-        <p id='form-description'></p>
-        <form id='new-user'>
-          <label>Username: </label><input type='text' name='username' placeholder='Username'>
-          <label>Location: </label><input type='text' name='location' placeholder='City, State'>
-          <input type='submit'>
-        </form>
+        <div>
+          <h1>capsule</h1>
+        </div>
+        <div>
+          <p id='new-user-description'>Looks like you're new! Please create an account to continue.</p>
+          <form id='new-user'>
+            <label>Username: </label><br><input type='text' name='username' placeholder='Username'>
+            <br>
+            <label>Location: </label><br><input type='text' name='location' placeholder='City, State'><br>
+            <input type='submit' class='form-submit-button'><br>
+            <button id='back-to-login'>Or, go back</button>
+          </form>
+        </div>
       </div>
     </div>
 
 <!--------- UPDATE USER MODAL --------->
     <div id='update-user-modal' class='modal'>
       <div class='modal-content'>
-        <span class='close'>&times;</span>
-        <p>Update your user profile</p>
-        <form id='update-user'>
-          <label>Username: </label><input type='text' name='username' placeholder='Username'>
-          <label>Location: </label><input type='text' name='location' placeholder='City, State'>
-          <input type='submit'>
-        </form>
+        <div>
+          <h1>capsule</h1>
+        </div>
+        <div class='form'><span class='close'>&times;</span>
+          <p>Update your user profile</p>
+          <form id='update-user'>
+            <label>Username: </label><br><input type='text' name='username' placeholder='Username'><br>
+            <label>Location: </label><br><input type='text' name='location' placeholder='City, State'><br>
+            <input type='submit' class='form-submit-button'>
+          </form>
+        </div>
       </div>
     </div>
 
+<<<<<<< HEAD
 <!---------  ADD CAPSULE MODAL ----------->
+=======
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
     <div id='add-capsule-modal' class='modal'>
       <div class='modal-content'>
         <span class='close'>&times;</span>
@@ -70,12 +125,15 @@
             <option value='casual'>Casual</option>
             <option value='athleisure'>Athleisure</option>
           </select>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
 
+<<<<<<< HEAD
 <!---------  ADD CAPSULE MODAL ----------->
+=======
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
     <div id='edit-capsule-modal' class='modal'>
       <div class='modal-content'>
         <span class='close'>&times;</span>
@@ -94,19 +152,29 @@
             <option value='casual'>Casual</option>
             <option value='athleisure'>Athleisure</option>
           </select>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
 
+<<<<<<< HEAD
 <!---------  REMOVE ARTICLE MODAL ----------->
+=======
+    <div id='show-article-modal' class='modal'>
+      <div class='modal-content'>
+        <span class='close'>&times;</span>
+        <div id='article-details'></div>
+      </div>
+    </div>
+
+>>>>>>> 1f32187e81ddd0781b4b16aee387fe0e7b2127a8
     <div id='remove-article-modal' class='modal'>
       <div class='modal-content'>
         <span class='close'>&times;</span>
         <p>Remove article!</p>
         <form id='remove-article'>
           <label>Name: </label><input type='text' name='articlename' placeholder='Article Name'>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
@@ -132,23 +200,11 @@
 
           <label>Image URL: </label><input type='text' name='image' placeholder='URL'>
 
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
 
-
-    <div id='show-article-images'>
-      <div id='tops'></div>
-      <div id='sweaters'></div>
-      <div id='pants'></div>
-      <div id='jeans'></div>
-      <div id='skirts'></div>
-      <div id='dresses'></div>
-      <div id='outerwear'></div>
-      <div id='accessories'></div>
-      <div id='shoes'></div>
-    </div>
 
   </main>
 
