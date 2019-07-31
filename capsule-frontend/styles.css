@@ -229,3 +229,16 @@ div.form {
   text-decoration: none;
   cursor: pointer;
 }
+#carousel-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+#carousel-container > div {
+  display: inline;
+  flex: 0 0 auto;
+}
+#carousel-container img {
+  max-width: 80px;
+  max-height: 80px;
+}

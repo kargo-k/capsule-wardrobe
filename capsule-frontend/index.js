@@ -16,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
     checkUser(username)
     modal.style.display = 'none'
   })
+
+  fetchAllArticles()
+
 });
 
 //////!------- USER CRUD -------///////
@@ -515,10 +518,8 @@ function fetchAllArticles() {
 }
 
 let renderCarousel = allArticles => {
-
-  let carouselDiv = document.getElementById('carousel-div')
+  let carouselDiv = document.getElementById('carousel-container')
   allArticles.forEach(article => {
-
     let div = document.createElement('div')
     div.className = 'card'
     carouselDiv.appendChild(div)
