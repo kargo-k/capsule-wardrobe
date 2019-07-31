@@ -72,6 +72,7 @@ let showUser = user => {
   userH.innerText = user.username
 
   let buttonDiv = document.querySelector('div#button-list')
+  buttonDiv.innerHTML = ""
   let editBtn = document.createElement('button')
   editBtn.innerText = 'Edit'
   buttonDiv.appendChild(editBtn)
@@ -160,6 +161,7 @@ let fetchCapsules = user => {
 // show user's capsules
 let showCapsules = capsules => {
   let capsuleBarDiv = document.getElementById('capsule-bar')
+  capsuleBarDiv.innerHTML = ""
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
     let capBtn = document.createElement('button')
@@ -183,7 +185,6 @@ let showCapsules = capsules => {
 
 // view specific capsule
 let viewCapsule = capsule => {
-
   clearCapsuleDiv()
 
   let capsuleHeader = document.getElementById('capsule-header')

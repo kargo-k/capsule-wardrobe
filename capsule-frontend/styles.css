@@ -24,11 +24,14 @@ dark sky blue: #76bed0
     grid-template-columns: 1fr 1fr 1fr 1fr;
   }
 }
-
-body {
+body, main {
   font-family: 'Lato', sans-serif;
 }
-
+img {
+  max-width: 200px;
+  max-height: 200px;
+  margin: 5px;
+}
 button {
   font-size: 10pt;
   color: #fff;
@@ -51,6 +54,7 @@ form input {
   border-radius: 5px;
   font-family: 'Raleway' sans-serif;
   margin: 5px 0px;
+  min-width: 100px;
 }
 h1 {
   font-family: 'Raleway', sans-serif;
@@ -96,6 +100,7 @@ header {
   display: flex;
   align-items: baseline;
   justify-content: center;
+  border-bottom: 2px solid #878e88;
 }
 .capsule-button {
   background-color: #f55d3e;
@@ -124,7 +129,10 @@ header {
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
   background-color: rgb(255, 255, 255); /* Fallback color */
-  background-color: rgba(118, 190, 208, 1); /* Black w/ opacity */
+  background-color: rgba(118, 190, 208, 1); /* blue w/ opacity */
+}
+#update-user-modal {
+  background-color: rgba(118, 190, 208, .75); /* blue w/ opacity */
 }
 
 /* Modal Content/Box */
@@ -139,14 +147,16 @@ header {
   align-items: center;
   justify-content: center;
 }
-
+div.form {
+  padding: 6px;
+  width: 100%;
+}
 .modal-content > div {
   padding: 6px;
 }
-
 /* The Close Button */
 .close {
-  color: #aaa;
+  color: #878e88;
   float: right;
   font-size: 28px;
   font-weight: bold;
@@ -154,12 +164,7 @@ header {
 
 .close:hover,
 .close:focus {
-  color: black;
+  color: #f55d3e;
   text-decoration: none;
   cursor: pointer;
 }
-
-#capsule-header {
-  border-bottom: 2px solid #878e88;
-}
-
