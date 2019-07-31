@@ -32,9 +32,11 @@ body {
 button {
   font-size: 10pt;
   color: #fff;
-  background-color: #878e88;
+  background-color: #76bed0;
   border-radius: 5px;
   font-family: 'Raleway' sans-serif;
+  display: block;
+  margin: 5px;
 }
 
 form input {
@@ -58,29 +60,46 @@ h1 {
 
 header h1 {
   font-family: 'Raleway', sans-serif;
-  margin: 15px 15px 10px 10px;
+  margin: 15px 15px 0px 10px;
 }
 header {
   display: flex;
   align-items: baseline;
   background: #fff;
   border-bottom: #878e88 3px solid;
+  margin: 0;
+  height: fit-content;
+  justify-content: space-between;
+  align-items: flex-end;
 }
 .subtitle {
   font-size: 8pt;
-  flex-grow: 2;
+  margin-left: 10px;
+  margin-bottom: 10px;
 }
-#show-user {
-  flex-grow: 2;
+#user-bar {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 #user-name {
   font-family: 'Raleway', sans-serif;
   color: #f55d3e;
+  margin: 0;
 }
-header > button {
-  
+#button-list > button {
+  min-width: 65px;
+  font-size: 8pt;
 }
-
+#capsule-bar {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+.capsule-button {
+  background-color: #f55d3e;
+  margin: 10px 5px;
+}
 /* The Modal (background) */
 .modal {
   display: none; /* Hidden by default */
@@ -140,6 +159,6 @@ header > button {
 }
 
 #capsule-header {
-  border: 2px solid black;
+  border-bottom: 3px solid #878e88;
 }
 

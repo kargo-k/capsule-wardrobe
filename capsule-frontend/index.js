@@ -73,24 +73,17 @@ let showUser = user => {
 
   let buttonDiv = document.querySelector('div#button-list')
   let editBtn = document.createElement('button')
-  editBtn.innerText = 'Edit Profile'
+  editBtn.innerText = 'Edit'
   buttonDiv.appendChild(editBtn)
   editBtn.addEventListener('click', function () {
     updateUser(user)
   })
 
   let deleteBtn = document.createElement('button')
-  deleteBtn.innerText = 'Delete Profile'
+  deleteBtn.innerText = 'Delete'
   buttonDiv.appendChild(deleteBtn)
   deleteBtn.addEventListener('click', function () {
     deleteUser(user)
-  })
-
-  let addCapsuleBtn = document.createElement('button')
-  addCapsuleBtn.innerText = 'Create a New Capsule'
-  buttonDiv.appendChild(addCapsuleBtn)
-  addCapsuleBtn.addEventListener('click', function (e) {
-    showNewCapsuleForm(user.id)
   })
 
   fetchCapsules(user)
@@ -166,17 +159,26 @@ let fetchCapsules = user => {
 
 // show user's capsules
 let showCapsules = capsules => {
-  let userDiv = document.getElementById('show-user')
+  let capsuleBarDiv = document.getElementById('capsule-bar')
   capsules.forEach(capsule => {
     let capDiv = document.createElement('div')
-    let capH3 = document.createElement('h3')
-    capH3.innerText = capsule.name
-    capH3.addEventListener('click', function (e) {
+    let capBtn = document.createElement('button')
+    capBtn.className = 'capsule-button'
+    capBtn.innerText = capsule.name
+    capBtn.addEventListener('click', function (e) {
       viewCapsule(capsule)
     })
-    capDiv.appendChild(capH3)
-    userDiv.appendChild(capDiv)
+    capDiv.appendChild(capBtn)
+    capsuleBarDiv.appendChild(capDiv)
   })
+
+  let addCapsuleBtn = document.createElement('button')
+  addCapsuleBtn.innerText = '+ New Capsule'
+  capsuleBarDiv.appendChild(addCapsuleBtn)
+  addCapsuleBtn.addEventListener('click', function (e) {
+    showNewCapsuleForm(user.id)
+  })
+
 }
 
 // view specific capsule
