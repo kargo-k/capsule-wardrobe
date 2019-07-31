@@ -304,7 +304,7 @@ let sortArticles = capsule => {
     articles[1].forEach(article => {
       let img = document.createElement('img')
       let div
-      articleCount ++
+      articleCount++
       img.setAttribute('src', article.image)
       img.addEventListener('click', function (e) { showArticle(article, capsule) })
 
@@ -507,3 +507,24 @@ function clearCapsuleDiv() {
   document.getElementById('add-article-div').innerHTML = ""
 }
 
+//! POPULATING THE CAROUSEL WITH DIVS FOR EACH ARTICLE
+function fetchAllArticles() {
+  fetch(ARTICLES_URL)
+    .then(resp => resp.json())
+    .then(renderCarousel)
+}
+
+let renderCarousel = allArticles => {
+
+  let carouselDiv = document.getElementById('carousel-div')
+  allArticles.forEach(article => {
+
+    let div = document.createElement('div')
+    div.className = 'card'
+    carouselDiv.appendChild(div)
+    let img = document.createElement('img')
+    img.setAttribute('src', article.image)
+    div.appendChild(img)
+  })
+
+}
