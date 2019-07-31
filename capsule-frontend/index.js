@@ -304,10 +304,10 @@ let sortArticles = capsule => {
           div = document.getElementById('jeans')
           div.appendChild(img)
           break;
-        case "shoes":
-          div = document.getElementById('shoes')
-          div.appendChild(img)
-          break;
+        // case "shoes":
+        //   div = document.getElementById('shoes')
+        //   div.appendChild(img)
+        //   break;
         case "accessory":
           div = document.getElementById('accessories')
           div.appendChild(img)

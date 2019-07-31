@@ -57,6 +57,12 @@ scraper('https://www.uniqlo.com/us/en/women/jeans', 'jeans')
 scraper('https://www.uniqlo.com/us/en/women/sweaters-and-cardigans', 'sweater')
 
 # # outerwear
+scraper('https://www.uniqlo.com/us/en/women/outerwear-and-blazers', 'outerwear')
+
+# # accessories (and shoes)
+scraper('https://www.uniqlo.com/us/en/women/accessories-and-shoes', 'accessory')
+
+
 
 5.times do 
   capsule1.articles << Article.all.sample
