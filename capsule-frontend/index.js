@@ -209,6 +209,7 @@ let viewCapsule = capsule => {
 
     let modal = document.getElementById('edit-capsule-modal')
     let span = modal.getElementsByClassName('close')[0]
+    document.getElementById('capsule-name-field').value = capsule.name
     modal.style.display = 'block'
     span.onclick = function () {
       modal.style.display = 'none'

@@ -83,6 +83,11 @@ header {
 }
 .subtitle {
   font-size: 8pt;
+  margin-left: 0px;
+  margin-bottom: 10px;
+}
+header .subtitle {
+  font-size: 8pt;
   margin-left: 10px;
   margin-bottom: 10px;
 }
@@ -164,10 +169,17 @@ header {
   background-color: rgb(255, 255, 255); /* Fallback color */
   background-color: rgba(118, 190, 208, 1); /* blue w/ opacity */
 }
-#update-user-modal {
+#update-user-modal, #add-article-modal, #edit-capsule-modal {
   background-color: rgba(118, 190, 208, .75); /* blue w/ opacity */
 }
-
+#add-article-modal input, select {
+  min-width: 200px;
+  margin: 5px 0;
+}
+#edit-capsule-modal input, select {
+  min-width: 200px;
+  margin: 5px 0;
+}
 /* Modal Content/Box */
 .modal-content {
   background-color: #fefefe;
@@ -184,6 +196,7 @@ div.form {
   padding: 6px;
   width: 100%;
 }
+
 .modal-content > div {
   padding: 6px;
 }
@@ -193,6 +206,7 @@ div.form {
   float: right;
   font-size: 28px;
   font-weight: bold;
+  line-height: 10px;
 }
 
 .close:hover,
