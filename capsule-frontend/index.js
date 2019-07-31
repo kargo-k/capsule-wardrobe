@@ -68,28 +68,27 @@ let fetchUsers = () => {
 
 // show user's page
 let showUser = user => {
-  let userDiv = document.getElementById('show-user')
-  userDiv.innerHTML = ""
-  let userh1 = document.createElement('h1')
-  userh1.innerText = user.username
-  userDiv.appendChild(userh1)
+  let userH = document.getElementById('user-name')
+  userH.innerText = user.username
 
+  let buttonDiv = document.querySelector('div#button-list')
   let editBtn = document.createElement('button')
   editBtn.innerText = 'Edit Profile'
-  userDiv.appendChild(editBtn)
+  buttonDiv.appendChild(editBtn)
   editBtn.addEventListener('click', function () {
     updateUser(user)
   })
 
   let deleteBtn = document.createElement('button')
   deleteBtn.innerText = 'Delete Profile'
-  userDiv.appendChild(deleteBtn)
+  buttonDiv.appendChild(deleteBtn)
   deleteBtn.addEventListener('click', function () {
     deleteUser(user)
   })
+
   let addCapsuleBtn = document.createElement('button')
   addCapsuleBtn.innerText = 'Create a New Capsule'
-  userDiv.appendChild(addCapsuleBtn)
+  buttonDiv.appendChild(addCapsuleBtn)
   addCapsuleBtn.addEventListener('click', function (e) {
     showNewCapsuleForm(user.id)
   })
