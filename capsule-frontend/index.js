@@ -184,6 +184,7 @@ let showCapsules = capsules => {
   addCapsuleBtn.innerText = '+ New Capsule'
   capsuleBarDiv.appendChild(addCapsuleBtn)
   addCapsuleBtn.addEventListener('click', function (e) {
+    console.log('new cap button clicked')
     showNewCapsuleForm(user.id)
   })
 
@@ -196,6 +197,7 @@ let viewCapsule = capsule => {
   let capsuleHeader = document.getElementById('capsule-header-menu')
   let capH3 = capsuleHeader.querySelector('h3')
   capH3.innerText = capsule.name
+
 
   // 'edit capsule' button
   let editBtn = document.createElement('button')
@@ -266,6 +268,11 @@ let viewCapsule = capsule => {
     e.preventDefault()
     addArticle(articleForm, capsule)
   })
+
+  let subTitle = document.createElement('div')
+  subTitle.className = 'subtitle'
+  document.getElementById('add-article-div').appendChild(subTitle)
+  subTitle.innerHTML = `Season: ${capsule.season} // Style: ${capsule.style}`
 
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)

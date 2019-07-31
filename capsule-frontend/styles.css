@@ -91,6 +91,9 @@ header .subtitle {
   margin-left: 10px;
   margin-bottom: 10px;
 }
+#add-article-div .subtitle {
+  text-align: center
+}
 #user-bar {
   display: flex;
   align-items: center;
