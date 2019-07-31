@@ -261,7 +261,7 @@ let viewCapsule = capsule => {
       let articleForm = document.getElementById('add-article')
       articleForm.addEventListener('submit', function (e) {
         e.preventDefault()
-        addArticle(articleForm, capsule)
+        createArticle(articleForm, capsule)
       })
     } else {
       let modal = document.getElementById('capsule-full-modal')
@@ -281,7 +281,7 @@ let viewCapsule = capsule => {
   let articleForm = document.getElementById('add-article')
   articleForm.addEventListener('submit', function (e) {
     e.preventDefault()
-    addArticle(articleForm, capsule)
+    createArticle(articleForm, capsule)
   })
 
   let subTitle = document.createElement('div')
@@ -355,7 +355,7 @@ let sortArticles = capsule => {
 }
 
 //////!-------ADDING A NEW ARTICLE -------///////
-let addArticle = (articleForm, capsule) => {
+let createArticle = (articleForm, capsule) => {
   fetch(ARTICLES_URL, {
     method: 'POST',
     headers: {
@@ -405,6 +405,37 @@ let showArticle = (article, capsule) => {
   removeBtn.addEventListener('click', function (e) {
     removeArticle(article, capsule)
 
+  })
+}
+
+// ! ---------------- show add article from collection modal
+let showAddArticle = (article, capsule) => {
+  let modal = document.getElementById('show-add-article-modal')
+  modal.style.display = 'block'
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = 'none'
+    }
+  }
+  let contentDiv = document.getElementById('add-article-details')
+  contentDiv.innerHTML = ""
+
+  let detailsDiv = document.getElementById('add-title-details')
+  detailsDiv.innerHTML = ""
+  let title = document.createElement('h1')
+  title.innerText = article.name
+  detailsDiv.appendChild(title)
+
+  let img = document.createElement('img')
+  img.setAttribute('src', article.image)
+  contentDiv.appendChild(img)
+
+  let addBtn = document.createElement('button')
+  addBtn.innerText = 'Add to my Capsule'
+  detailsDiv.appendChild(addBtn)
+
+  addBtn.addEventListener('click', function (e) {
+    addArticle(article, capsule)
   })
 }
 
@@ -529,8 +560,27 @@ let renderCarousel = (allArticles, capsule) => {
     let img = document.createElement('img')
     img.setAttribute('src', article.image)
     div.appendChild(img)
-    img.addEventListener('click', showArticle(article, capsule))
-
+    img.addEventListener('click', function (e) {
+      showAddArticle(article, capsule)
+    })
   })
 
+}
+
+// !-------adds existing article to a capsule
+let addArticle = (article, capsule) => {
+  fetch(ARTICLES_URL + `/${article.id}/add`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    },
+    body: JSON.stringify({
+      id: article.id,
+      capsule_id: capsule.id
+    })
+  }).then(resp => resp.json()).then(capsule => {
+    viewCapsule(capsule)
+    document.getElementById('show-add-article-modal').style.display = 'none'
+  })
 }
