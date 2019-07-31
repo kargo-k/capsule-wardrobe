@@ -41,7 +41,7 @@ button {
   border-radius: 5px;
   display: inline;
   margin: 5px;
-  padding: 2px;
+  padding: 2px 12px;
 }
 .highlight-button {
   background-color: #f55d3e;
