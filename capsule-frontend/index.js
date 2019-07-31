@@ -193,7 +193,7 @@ let showCapsules = capsules => {
 let viewCapsule = capsule => {
   clearCapsuleDiv()
 
-  let capsuleHeader = document.getElementById('capsule-header')
+  let capsuleHeader = document.getElementById('show-capsule-details')
   let capH3 = document.createElement('h3')
   capH3.innerText = capsule.name
   capsuleHeader.appendChild(capH3)
@@ -201,9 +201,8 @@ let viewCapsule = capsule => {
   // 'add article to capsule' button
   let addBtn = document.createElement('button')
   addBtn.innerText = 'Add Article'
-  capsuleHeader.appendChild(addBtn)
+  addBtn.className = 'highlight-button'
   addBtn.addEventListener('click', function (e) {
-
     let modal = document.getElementById('add-article-modal')
     let span = modal.getElementsByClassName('close')[0]
     modal.style.display = 'block'
@@ -262,6 +261,7 @@ let viewCapsule = capsule => {
     })
   })
 
+  capsuleHeader.appendChild(addBtn)
   sortArticles(capsule)
 }
 
@@ -462,14 +462,14 @@ let editCapsule = (editCapsuleForm, capsule) => {
 
 // function to clear the capsule div every time a new capsule is selected, created, or a new user logs in
 function clearCapsuleDiv() {
-  let articleImgDiv = document.getElementById('show-article-images')
+  let articleImgDiv = document.getElementById('show-article-imgs')
   let innerDivs = articleImgDiv.childNodes
 
   innerDivs.forEach(node => {
-    if (node.tagName == 'DIV') {
+    if (node.tagName == 'SPAN') {
       node.innerText = ""
     }
   })
 
-  document.getElementById('capsule-header').innerHTML = ""
+  document.getElementById('show-capsule-details').innerHTML = ""
 }

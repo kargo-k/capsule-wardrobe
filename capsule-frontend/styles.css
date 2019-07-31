@@ -28,33 +28,39 @@ body, main {
   font-family: 'Lato', sans-serif;
 }
 img {
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 120px;
+  max-height: 120px;
   margin: 5px;
+  border-radius: 10px;
+  display: inline;
 }
 button {
   font-size: 10pt;
   color: #fff;
   background-color: #76bed0;
   border-radius: 5px;
-  font-family: 'Raleway' sans-serif;
-  display: block;
+  display: inline;
   margin: 5px;
+  padding: 2px;
 }
-
+.highlight-button {
+  background-color: #f55d3e;
+}
 form input {
   padding: 3px;
   margin: 5px 0px;
 }
 
-.form-submit-button {
+.form-submit-button, #back-to-login {
   font-size: 10pt;
   color: #fff;
   background-color: #878e88;
   border-radius: 5px;
-  font-family: 'Raleway' sans-serif;
   margin: 5px 0px;
   min-width: 100px;
+}
+#back-to-login {
+  background-color: #f55d3e;
 }
 h1 {
   font-family: 'Raleway', sans-serif;
@@ -95,6 +101,7 @@ header {
 #button-list > button {
   min-width: 65px;
   font-size: 8pt;
+  display: block;
 }
 #capsule-bar {
   display: flex;
@@ -105,6 +112,29 @@ header {
 .capsule-button {
   background-color: #f55d3e;
   margin: 10px 5px;
+}
+#capsule-container {
+  display: grid;
+  grid-template-columns: 2fr 5fr;
+  padding: 10px;
+  margin: 10px 0;
+  grid-column: 10px;
+}
+#show-capsule-details {
+  border: 2px solid #f7cb15;
+  padding: 15px;
+}
+#show-capsule-details h3 {
+  font-family: 'Raleway', sans-serif;
+  color: #f55d3e;
+  text-align: center;
+}
+#show-capsule-details button {
+  min-width: 120px;
+}
+.article {
+  padding: 5px;
+  text-align: center;
 }
 /* The Modal (background) */
 .modal {
