@@ -354,11 +354,7 @@ let addArticle = (articleForm, capsule) => {
 //////!-------SHOWING ARTICLE DETAILS -------///////
 let showArticle = (article, capsule) => {
   let modal = document.getElementById('show-article-modal')
-  let span = modal.getElementsByClassName('close')[0]
   modal.style.display = 'block'
-  span.onclick = function () {
-    modal.style.display = 'none'
-  }
   window.onclick = function (e) {
     if (e.target == modal) {
       modal.style.display = 'none'
@@ -368,20 +364,24 @@ let showArticle = (article, capsule) => {
   let contentDiv = document.getElementById('article-details')
   contentDiv.innerHTML = ""
 
-  let title = document.createElement('h3')
+  let detailsDiv = document.getElementById('title-details')
+  detailsDiv.innerHTML = ""
+  let title = document.createElement('h1')
   title.innerText = article.name
-  contentDiv.appendChild(title)
+  detailsDiv.appendChild(title)
 
   let img = document.createElement('img')
   img.setAttribute('src', article.image)
   contentDiv.appendChild(img)
 
+
   let removeBtn = document.createElement('button')
   removeBtn.innerText = 'Remove from Capsule'
-  contentDiv.appendChild(removeBtn)
+  detailsDiv.appendChild(removeBtn)
 
   removeBtn.addEventListener('click', function (e) {
     removeArticle(article, capsule)
+
   })
 }
 
