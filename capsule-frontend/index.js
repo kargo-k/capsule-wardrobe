@@ -193,38 +193,18 @@ let showCapsules = capsules => {
 let viewCapsule = capsule => {
   clearCapsuleDiv()
 
-  let capsuleDetails = document.getElementById('show-capsule-details')
-  let capH3 = capsuleDetails.querySelector('h3')
+  let capsuleHeader = document.getElementById('capsule-header-menu')
+  let capH3 = capsuleHeader.querySelector('h3')
   capH3.innerText = capsule.name
-  capsuleDetails.appendChild(capH3)
-
-  // 'add article to capsule' button
-  let addBtn = document.createElement('button')
-  addBtn.innerText = 'Add Article'
-  addBtn.className = 'highlight-button'
-  addBtn.addEventListener('click', function (e) {
-    let modal = document.getElementById('add-article-modal')
-    let span = modal.getElementsByClassName('close')[0]
-    modal.style.display = 'block'
-    span.onclick = function () {
-      modal.style.display = 'none'
-    }
-    window.onclick = function (e) {
-      if (e.target == modal) {
-        modal.style.display = 'none'
-      }
-    }
-  })
-  let articleForm = document.getElementById('add-article')
-  articleForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    addArticle(articleForm, capsule)
-  })
 
   // 'edit capsule' button
   let editBtn = document.createElement('button')
-  editBtn.innerText = 'Edit Capsule'
-  capsuleDetails.appendChild(editBtn)
+  console.log('create edit button')
+  let btnList = document.createElement('div')
+  btnList.id = 'button-list'
+  capsuleHeader.appendChild(btnList)
+  editBtn.innerText = 'Edit'
+  btnList.appendChild(editBtn)
   editBtn.addEventListener('click', function (e) {
 
     let modal = document.getElementById('edit-capsule-modal')
@@ -240,6 +220,7 @@ let viewCapsule = capsule => {
     }
 
   })
+
   let editCapsuleForm = document.getElementById('edit-capsule')
   editCapsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -248,8 +229,8 @@ let viewCapsule = capsule => {
 
   // 'delete capsule' button
   let deleteBtn = document.createElement('button')
-  deleteBtn.innerText = 'Delete Capsule'
-  capsuleDetails.appendChild(deleteBtn)
+  deleteBtn.innerText = 'Delete'
+  btnList.appendChild(deleteBtn)
   deleteBtn.addEventListener('click', function (e) {
     fetch(CAPSULES_URL + `/${capsule.id}`, {
       method: 'DELETE'
@@ -261,7 +242,31 @@ let viewCapsule = capsule => {
     })
   })
 
-  capsuleDetails.appendChild(addBtn)
+  // 'add article to capsule' button
+  let addBtn = document.createElement('button')
+  addBtn.innerText = 'Add Your Own Article'
+  addBtn.className = 'highlight-button'
+  addBtn.addEventListener('click', function (e) {
+    let modal = document.getElementById('add-article-modal')
+    let span = modal.getElementsByClassName('close')[0]
+    modal.style.display = 'block'
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+    window.onclick = function (e) {
+      if (e.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
+  })
+
+  let articleForm = document.getElementById('add-article')
+  articleForm.addEventListener('submit', function (e) {
+    e.preventDefault()
+    addArticle(articleForm, capsule)
+  })
+
+  document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
 }
 
@@ -471,5 +476,7 @@ function clearCapsuleDiv() {
     }
   })
 
-  document.getElementById('show-capsule-details').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
+  document.getElementById('capsule-header-menu').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
+
+  document.getElementById('add-article-div').innerHTML = ""
 }
