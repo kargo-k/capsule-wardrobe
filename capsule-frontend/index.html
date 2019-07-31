@@ -9,7 +9,9 @@
 <body>
 
   <header>
-    <h1> header area </h1>
+    <div>
+      <h1>capsule</h1>
+    </div>
   </header>
 
   <main>
@@ -32,22 +34,27 @@
     <!-- ALL MODALS BELOW THIS LINE -->
     <div id='login-modal' class='modal'>
       <div class="modal-content">
-        <p id='form-description'></p>
-        <form id='login'>
-          <label>Username: </label><input type='text' name='username' placeholder='Username'>
-          <input type='submit'>
-        </form>
+        <div>
+          <h1>capsule</h1>
+        </div>
+        <div>
+          <p id='form-description'>Welcome! Enter your username below to view your capsules.</p>
+          <form id='login'>
+            <input type='text' name='username' placeholder='Username'>
+            <input type='submit' class='form-submit-button'>
+          </form>
+        </div>
       </div>
     </div>
 
     <div id='new-user-modal' class='modal'>
       <div class="modal-content">
         <span class='close'>&times;</span>
-        <p id='new-user-description'></p>
+        <p id='new-user-description'>Looks like you're new! Please create an account to continue.</p>
         <form id='new-user'>
           <label>Username: </label><input type='text' name='username' placeholder='Username'>
           <label>Location: </label><input type='text' name='location' placeholder='City, State'>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
@@ -82,7 +89,7 @@
             <option value='casual'>Casual</option>
             <option value='athleisure'>Athleisure</option>
           </select>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
@@ -105,7 +112,7 @@
             <option value='casual'>Casual</option>
             <option value='athleisure'>Athleisure</option>
           </select>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
@@ -123,7 +130,7 @@
         <p>Remove article!</p>
         <form id='remove-article'>
           <label>Name: </label><input type='text' name='articlename' placeholder='Article Name'>
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>
@@ -148,7 +155,7 @@
 
           <label>Image URL: </label><input type='text' name='image' placeholder='URL'>
 
-          <input type='submit'>
+          <input type='submit' class='form-submit-button'>
         </form>
       </div>
     </div>

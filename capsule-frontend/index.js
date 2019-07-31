@@ -7,8 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // show login modal on page load 
   let loginForm = document.getElementById('login')
   let modal = document.getElementById('login-modal')
-  let description = document.getElementById('form-description')
-  description.innerText = 'Enter your username to view your capsules'
   modal.style.display = 'block'
   // adding event listener to the submit button on login form
   loginForm.addEventListener('submit', function (e) {
@@ -21,7 +19,6 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 //////!------- USER CRUD -------///////
-
 // Check if username exists, if yes, show user's page, if no, create account
 let checkUser = username => {
   fetchUsers(username).then(allUsers => {
@@ -40,18 +37,7 @@ let checkUser = username => {
 // show form to create new user account
 let showNewUserForm = username => {
   let modal = document.getElementById('new-user-modal')
-  let span = document.getElementsByClassName('close')[0]
-  let description = document.getElementById('new-user-description')
-  description.innerText = 'Looks like you\'re new here! Please create an account to continue.'
   modal.style.display = 'block'
-  span.onclick = function () {
-    modal.style.display = 'none'
-  }
-  window.onclick = function (e) {
-    if (e.target == modal) {
-      modal.style.display = 'none'
-    }
-  }
   let newUserForm = document.getElementById('new-user')
   newUserForm['username'].value = username
   // add new user from form

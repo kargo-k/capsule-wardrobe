@@ -1,11 +1,9 @@
-/* Coolors Exported Palette - coolors.co/f55d3e-878e88-f7cb15-ffffff-76bed0 */
-
 /* hex */
-/* orange soda: f55d3e
-gray: 878e88
-yellow: f7cb15
-white: ffffff
-dark sky blue: 76bed0
+/* orange soda: #f55d3e
+gray: #878e88
+yellow: #f7cb15
+white: #ffffff
+dark sky blue: #76bed0
 
 /* RGB */
 /* orange soda: rgba(245, 93, 62, 1); */
@@ -14,12 +12,33 @@ dark sky blue: 76bed0
 /* white: rgba(255, 255, 255, 1); */
 /* dark sky blue: rgba(118, 190, 208, 1); */ 
 
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css?family=Lato|Raleway:900&display=swap');
+
+body {
+  font-family: 'Lato', sans-serif;
+}
 
 button {
-  font-size: 0.65em;
+  font-size: 10pt;
   color: #fff;
-  background-color: green;
-  border-radius: 10px;
+  background-color: #878e88;
+  border-radius: 5px;
+  font-family: 'Raleway' sans-serif;
+}
+
+form input {
+  padding: 3px;
+  margin: 5px 0px;
+}
+
+.form-submit-button {
+  font-size: 10pt;
+  color: #fff;
+  background-color: #878e88;
+  border-radius: 5px;
+  font-family: 'Raleway' sans-serif;
+  margin: 5px 0px;
 }
 
 @media only screen and (min-width: 500px) {
@@ -43,8 +62,33 @@ button {
   width: 100%; /* Full width */
   height: 100%; /* Full height */
   overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgb(255, 255, 255); /* Fallback color */
   background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+#login-modal{
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(255, 255, 255); /* Fallback color */
+  background-color: rgba(118, 190, 208, 1); /* Black w/ opacity */
+}
+h1{
+  font-family: 'Raleway', sans-serif;
+  color: #76bed0;
+  margin-right: 15px;
+}
+h1, h2, h3 {
+  font-family: 'Raleway', sans-serif;
+}
+header {
+  display: flex;
+  align-content: flex-end;
 }
 
 /* Modal Content/Box */
@@ -52,9 +96,16 @@ button {
   background-color: #fefefe;
   margin: 15% auto; /* 15% from the top and centered */
   padding: 20px;
-  border: 2px solid #888;
+  border: 2px solid #878e88;
   font-size: 12px;
   width: 50%; /* Could be more or less, depending on screen size */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content > div {
+  padding: 6px;
 }
 
 /* The Close Button */
@@ -75,3 +126,4 @@ button {
 #capsule-header {
   border: 2px solid black;
 }
+
