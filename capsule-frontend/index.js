@@ -273,9 +273,11 @@ let fetchArticles = capsule => {
 
 let sortArticles = capsule => {
   fetchArticles(capsule).then(articles => {
+    articleCount = 0
     articles[1].forEach(article => {
       let img = document.createElement('img')
       let div
+      articleCount ++
       img.setAttribute('src', article.image)
       img.addEventListener('click', function (e) { showArticle(article, capsule) })
 
@@ -318,27 +320,42 @@ let sortArticles = capsule => {
           break;
       }
     })
+    return articleCount
   })
 }
 
 //////!-------ADDING A NEW ARTICLE -------///////
 let addArticle = (articleForm, capsule) => {
-  fetch(ARTICLES_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      name: articleForm['articlename'].value,
-      category: articleForm['selCategory'].value,
-      image: articleForm['image'].value,
-      capsule_id: capsule.id
+  if (articleCount < 33) {
+    fetch(ARTICLES_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        name: articleForm['articlename'].value,
+        category: articleForm['selCategory'].value,
+        image: articleForm['image'].value,
+        capsule_id: capsule.id
+      })
+    }).then(resp => resp.json()).then(x => {
+      document.getElementById('add-article-modal').style.display = 'none'
+      viewCapsule(capsule)
     })
-  }).then(resp => resp.json()).then(x => {
-    document.getElementById('add-article-modal').style.display = 'none'
-    viewCapsule(capsule)
-  })
+  } else {
+    let modal = document.getElementById('capsule-full-modal')
+    let span = modal.getElementsByClassName('close')[0]
+    modal.style.display = 'block'
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+    window.onclick = function (e) {
+      if (e.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
+  }
 }
 
 //////!-------SHOWING ARTICLE DETAILS -------///////
@@ -473,3 +490,4 @@ function clearCapsuleDiv() {
 
   document.getElementById('show-capsule-details').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
 }
+
