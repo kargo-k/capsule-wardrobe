@@ -143,7 +143,6 @@ let deleteUser = user => {
   return fetch(USERS_URL + `/${user.id}`, {
     method: 'DELETE'
   }).then(resp => resp.json()).then((allUsers) => {
-    console.log(allUsers)
     document.getElementById('show-user').innerHTML = ""
   })
 }
@@ -160,12 +159,12 @@ let fetchCapsules = user => {
       let capsules = data.filter(capsule => {
         return capsule.user_id == user.id
       })
-      showCapsules(capsules)
+      showCapsules(capsules, user)
     })
 }
 
 // show user's capsules
-let showCapsules = capsules => {
+let showCapsules = (capsules, user) => {
   let capsuleBarDiv = document.getElementById('capsule-bar')
   capsuleBarDiv.innerHTML = ""
   capsules.forEach(capsule => {
@@ -184,7 +183,6 @@ let showCapsules = capsules => {
   addCapsuleBtn.innerText = '+ New Capsule'
   capsuleBarDiv.appendChild(addCapsuleBtn)
   addCapsuleBtn.addEventListener('click', function (e) {
-    console.log('new cap button clicked')
     showNewCapsuleForm(user.id)
   })
 
@@ -201,7 +199,6 @@ let viewCapsule = capsule => {
 
   // 'edit capsule' button
   let editBtn = document.createElement('button')
-  console.log('create edit button')
   let btnList = document.createElement('div')
   btnList.id = 'button-list'
   capsuleHeader.appendChild(btnList)
