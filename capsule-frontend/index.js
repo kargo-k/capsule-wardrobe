@@ -198,45 +198,6 @@ let viewCapsule = capsule => {
   capH3.innerText = capsule.name
 
 
-
-  // 'add article to capsule' button
-  let addBtn = document.createElement('button')
-  addBtn.innerText = 'Add Article'
-  addBtn.className = 'highlight-button'
-  addBtn.addEventListener('click', function (e) {
-    if (articleCount < 33) {
-      let modal = document.getElementById('add-article-modal')
-      let span = modal.getElementsByClassName('close')[0]
-      modal.style.display = 'block'
-      span.onclick = function () {
-        modal.style.display = 'none'
-      }
-      window.onclick = function (e) {
-        if (e.target == modal) {
-          modal.style.display = 'none'
-        }
-      }
-    let articleForm = document.getElementById('add-article')
-    articleForm.addEventListener('submit', function (e) {
-      e.preventDefault()
-      addArticle(articleForm, capsule)
-    })
-  } else {
-    let modal = document.getElementById('capsule-full-modal')
-    let span = modal.getElementsByClassName('close')[0]
-    modal.style.display = 'block'
-    span.onclick = function () {
-      modal.style.display = 'none'
-      }
-    window.onclick = function (e) {
-      if (e.target == modal) {
-        modal.style.display = 'none'
-        }
-      }
-    }
-  })
-
-
   // 'edit capsule' button
   let editBtn = document.createElement('button')
   let btnList = document.createElement('div')
@@ -245,7 +206,6 @@ let viewCapsule = capsule => {
   editBtn.innerText = 'Edit'
   btnList.appendChild(editBtn)
   editBtn.addEventListener('click', function (e) {
-
     let modal = document.getElementById('edit-capsule-modal')
     let span = modal.getElementsByClassName('close')[0]
     document.getElementById('capsule-name-field').value = capsule.name
@@ -258,9 +218,7 @@ let viewCapsule = capsule => {
         modal.style.display = 'none'
       }
     }
-
   })
-
   let editCapsuleForm = document.getElementById('edit-capsule')
   editCapsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -284,18 +242,37 @@ let viewCapsule = capsule => {
 
   // 'add article to capsule' button
   let addBtn = document.createElement('button')
-  addBtn.innerText = 'Add Your Own Article'
+  addBtn.innerText = 'Add Article'
   addBtn.className = 'highlight-button'
   addBtn.addEventListener('click', function (e) {
-    let modal = document.getElementById('add-article-modal')
-    let span = modal.getElementsByClassName('close')[0]
-    modal.style.display = 'block'
-    span.onclick = function () {
-      modal.style.display = 'none'
-    }
-    window.onclick = function (e) {
-      if (e.target == modal) {
+    if (articleCount < 33) {
+      let modal = document.getElementById('add-article-modal')
+      let span = modal.getElementsByClassName('close')[0]
+      modal.style.display = 'block'
+      span.onclick = function () {
         modal.style.display = 'none'
+      }
+      window.onclick = function (e) {
+        if (e.target == modal) {
+          modal.style.display = 'none'
+        }
+      }
+      let articleForm = document.getElementById('add-article')
+      articleForm.addEventListener('submit', function (e) {
+        e.preventDefault()
+        addArticle(articleForm, capsule)
+      })
+    } else {
+      let modal = document.getElementById('capsule-full-modal')
+      let span = modal.getElementsByClassName('close')[0]
+      modal.style.display = 'block'
+      span.onclick = function () {
+        modal.style.display = 'none'
+      }
+      window.onclick = function (e) {
+        if (e.target == modal) {
+          modal.style.display = 'none'
+        }
       }
     }
   })
