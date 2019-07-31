@@ -143,7 +143,8 @@ let deleteUser = user => {
   return fetch(USERS_URL + `/${user.id}`, {
     method: 'DELETE'
   }).then(resp => resp.json()).then((allUsers) => {
-    document.getElementById('show-user').innerHTML = ""
+    document.getElementById('user-name').innerHTML = ""
+    document.getElementById('login-modal').style.display = 'block'
   })
 }
 
