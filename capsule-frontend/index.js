@@ -59,6 +59,12 @@ let showNewUserForm = username => {
       showUser(user)
     })
   })
+
+  document.getElementById('back-to-login').addEventListener('click', function (e) {
+    document.getElementById('new-user-modal').style.display = 'none'
+    document.getElementById('login-modal').style.display = 'block'
+  })
+
 }
 
 // get all users from db
