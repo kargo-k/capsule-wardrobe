@@ -228,6 +228,12 @@ header .subtitle {
   flex-wrap: wrap;
   justify-content: space-evenly;
 }
+#capsule-full-modal .modal-content {
+  display: block
+}
+#capsule-full-modal h1 {
+  color: #f55d3e
+}
 /* The Close Button */
 .close {
   color: #878e88;

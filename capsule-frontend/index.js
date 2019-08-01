@@ -353,6 +353,16 @@ let viewCapsule = capsule => {
   })
 
 
+  let subTitle = document.createElement('div')
+  subTitle.className = 'subtitle'
+  document.getElementById('add-article-div').appendChild(subTitle)
+  subTitle.innerHTML = `Season: ${capsule.season} // Style: ${capsule.style}`
+  let articleTotal = document.createElement('div')
+  currentCount(capsule).then(count => {
+    articleTotal.innerText = `${count} / 33 Articles`
+  })
+  document.getElementById('add-article-div').appendChild(articleTotal)
+
   // 'random outfit' button
   let randomBtn = document.createElement('button')
   randomBtn.id = 'ootd-btn'
@@ -362,15 +372,6 @@ let viewCapsule = capsule => {
     getRandomOutfit(capsule)
   })
 
-  let subTitle = document.createElement('div')
-  subTitle.className = 'subtitle'
-  document.getElementById('add-article-div').appendChild(subTitle)
-  subTitle.innerHTML = `Season: ${capsule.season} // Style: ${capsule.style}`
-  let articleTotal = document.createElement('div')
-  currentCount(capsule).then(count =>{
-    articleTotal.innerText = `${count} / 33 Articles`
-  })
-  document.getElementById('add-article-div').appendChild(articleTotal)
 
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
