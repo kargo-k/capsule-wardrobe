@@ -162,6 +162,7 @@ let fetchCapsules = user => {
         return capsule.user_id == user.id
       })
       showCapsules(capsules, user)
+      document.getElementById('bottom-container').style.display = 'block'
     })
 }
 
@@ -236,6 +237,7 @@ let viewCapsule = capsule => {
     }).then(res => res.json()).then(x => {
       fetch(USERS_URL + `/${capsule.user_id}`).then(res => res.json()).then(user => {
         clearCapsuleDiv()
+        document.getElementById('bottom-container').style.display = 'none'
         showUser(user)
       })
     })
