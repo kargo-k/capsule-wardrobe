@@ -353,9 +353,6 @@ let viewCapsule = capsule => {
   })
 
 
-
-
-
   let subTitle = document.createElement('div')
   subTitle.className = 'subtitle'
   document.getElementById('add-article-div').appendChild(subTitle)
@@ -997,18 +994,34 @@ let renderCarousel = (allArticles, capsule) => {
 
 // !-------adds existing article to a capsule
 let addArticle = (article, capsule) => {
-  fetch(ARTICLES_URL + `/${article.id}/add`, {
-    method: 'PATCH',
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept': 'application/json'
-    },
-    body: JSON.stringify({
-      id: article.id,
-      capsule_id: capsule.id
+  if (articleCount < 33) {  
+    fetch(ARTICLES_URL + `/${article.id}/add`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        id: article.id,
+        capsule_id: capsule.id
+      })
+    }).then(resp => resp.json()).then(capsule => {
+      viewCapsule(capsule)
+      document.getElementById('show-add-article-modal').style.display = 'none'
     })
-  }).then(resp => resp.json()).then(capsule => {
-    viewCapsule(capsule)
+  } else {
+    let modal = document.getElementById('capsule-full-modal')
+    let span = modal.getElementsByClassName('close')[0]
+    modal.style.display = 'block'
+    span.onclick = function () {
+      modal.style.display = 'none'
+    }
+    window.onclick = function (e) {
+      if (e.target == modal) {
+        modal.style.display = 'none'
+      }
+    }
     document.getElementById('show-add-article-modal').style.display = 'none'
-  })
+  }
+
 }
