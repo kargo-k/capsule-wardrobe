@@ -189,7 +189,7 @@ let renderUpdateUserForm = (modalContents, user) => {
   label.innerText = 'Location: '
   form.appendChild(label)
   form.appendChild(input)
-
+  form.appendChild(document.createElement('br'))
   input = document.createElement('input')
   input.type = 'submit'
   input.className = 'form-submit-button'
@@ -994,7 +994,7 @@ let renderCarousel = (allArticles, capsule) => {
 
 // !-------adds existing article to a capsule
 let addArticle = (article, capsule) => {
-  if (articleCount < 33) {  
+  if (articleCount < 33) {
     fetch(ARTICLES_URL + `/${article.id}/add`, {
       method: 'PATCH',
       headers: {
