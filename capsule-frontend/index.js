@@ -841,7 +841,6 @@ let currentCount = function (capsule) {
 let countArticles = function (contents) {
   let capsuleItems = contents[1]
   let runningTotal = capsuleItems.length
-  console.log(runningTotal)
   return runningTotal
 }
 
