@@ -2,21 +2,59 @@ BASE_URL = 'http://localhost:3000'
 USERS_URL = `${BASE_URL}/users`
 CAPSULES_URL = `${BASE_URL}/capsules`
 ARTICLES_URL = `${BASE_URL}/articles`
+SUBTITLE = 'a tool for visualizing and building your capsule wardrobe'
 
 document.addEventListener("DOMContentLoaded", function () {
   // show login modal on page load 
-  let loginForm = document.getElementById('login')
+  // let loginForm = document.getElementById('login')
   let modal = document.getElementById('login-modal')
   modal.style.display = 'block'
-  // adding event listener to the submit button on login form
-  loginForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    let username = loginForm['username'].value
-    loginForm['username'].value = ""
-    checkUser(username)
-    modal.style.display = 'none'
-  })
+  let modalContent = modal.querySelector('div.modal-content')
+  createLoginModalContents(modalContent)
 });
+
+function createLoginModalContents(modalContent) {
+
+  let div1 = document.createElement('div')
+  modalContent.appendChild(div1)
+  let title = document.createElement('h1')
+  div1.appendChild(title)
+  title.innerText = 'capsule'
+  let subtitleDiv = document.createElement('div')
+  subtitleDiv.className = 'subtitle'
+  subtitleDiv.innerText = SUBTITLE
+  div1.appendChild(subtitleDiv)
+  let div2 = document.createElement('div')
+  modalContent.appendChild(div2)
+  let p = document.createElement('p')
+  p.id = 'form-description'
+  p.innerText = 'Welcome! Enter your username below to view your capsules.'
+  div2.appendChild(p)
+
+  let form = document.createElement('form')
+  form.id = 'login'
+  div2.appendChild(form)
+
+  let usernameInput = document.createElement('input')
+  usernameInput.type = 'text'
+  usernameInput.name = 'username'
+  usernameInput.placeholder = 'Username'
+  form.appendChild(usernameInput)
+
+  let submitBtn = document.createElement('input')
+  submitBtn.type = 'submit'
+  submitBtn.className = 'form-submit-button'
+  form.appendChild(submitBtn)
+
+  // adding event listener to the submit button on login form
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    let username = form['username'].value
+    form['username'].value = ""
+    checkUser(username)
+    document.getElementById('login-modal').style.display = 'none'
+  })
+}
 
 //////!------- USER CRUD -------///////
 // Check if username exists, if yes, show user's page, if no, create account
@@ -261,6 +299,7 @@ let viewCapsule = capsule => {
       let articleForm = document.getElementById('add-article')
       articleForm.addEventListener('submit', function (e) {
         e.preventDefault()
+        console.log('addarticle event')
         createArticle(articleForm, capsule)
         articleForm.reset()
       })
@@ -343,6 +382,9 @@ let sortArticles = capsule => {
           div = document.getElementById('outerwear')
           div.appendChild(img)
           break;
+        default:
+          div = document.getElementById('other')
+          div.appendChild(img)
       }
     })
     return articleCount
@@ -522,6 +564,7 @@ let editCapsule = (editCapsuleForm, capsule) => {
 
 // function to clear the capsule div every time a new capsule is selected, created, or a new user logs in
 function clearCapsuleDiv() {
+  console.log('clear the capsule!')
   let articleImgDiv = document.getElementById('show-article-imgs')
   let innerDivs = articleImgDiv.childNodes
 
