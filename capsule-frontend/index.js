@@ -162,6 +162,7 @@ let fetchCapsules = user => {
         return capsule.user_id == user.id
       })
       showCapsules(capsules, user)
+      document.getElementById('bottom-container').style.display = 'block'
     })
 }
 
@@ -185,7 +186,7 @@ let showCapsules = (capsules, user) => {
   addCapsuleBtn.innerText = '+ New Capsule'
   capsuleBarDiv.appendChild(addCapsuleBtn)
   addCapsuleBtn.addEventListener('click', function (e) {
-    showNewCapsuleForm(user.id)
+    showNewCapsuleForm(user)
   })
 
 }
@@ -236,6 +237,7 @@ let viewCapsule = capsule => {
     }).then(res => res.json()).then(x => {
       fetch(USERS_URL + `/${capsule.user_id}`).then(res => res.json()).then(user => {
         clearCapsuleDiv()
+        document.getElementById('bottom-container').style.display = 'none'
         showUser(user)
       })
     })
@@ -262,6 +264,7 @@ let viewCapsule = capsule => {
       articleForm.addEventListener('submit', function (e) {
         e.preventDefault()
         createArticle(articleForm, capsule)
+        articleForm.reset()
       })
     } else {
       let modal = document.getElementById('capsule-full-modal')
@@ -276,12 +279,6 @@ let viewCapsule = capsule => {
         }
       }
     }
-  })
-
-  let articleForm = document.getElementById('add-article')
-  articleForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    createArticle(articleForm, capsule)
   })
 
   let subTitle = document.createElement('div')
@@ -354,7 +351,7 @@ let sortArticles = capsule => {
   })
 }
 
-//////!-------ADDING A NEW ARTICLE -------///////
+//////!-------CREATING A NEW ARTICLE -------///////
 let createArticle = (articleForm, capsule) => {
   fetch(ARTICLES_URL, {
     method: 'POST',
@@ -368,8 +365,11 @@ let createArticle = (articleForm, capsule) => {
       image: articleForm['image'].value,
       capsule_id: capsule.id
     })
-  }).then(resp => resp.json()).then(x => {
+  }).then(resp => resp.json()).then(articles => {
     document.getElementById('add-article-modal').style.display = 'none'
+    articleForm['articlename'].value = ''
+    articleForm['selCategory'].value = ''
+    articleForm['image'].value = ''
     viewCapsule(capsule)
   })
 }
@@ -462,7 +462,7 @@ let removeArticle = (article, capsule) => {
 //////!-------ADDING A NEW CAPSULE -------///////
 
 // show new capsule form
-let showNewCapsuleForm = user_id => {
+let showNewCapsuleForm = user => {
   let capsuleForm = document.getElementById('add-capsule')
   let modal = document.getElementById('add-capsule-modal')
   let span = modal.getElementsByClassName('close')[0]
@@ -477,12 +477,13 @@ let showNewCapsuleForm = user_id => {
   }
   capsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
-    createCapsule(capsuleForm, user_id)
+    createCapsule(capsuleForm, user)
+    fetchCapsules(user)
   })
 }
 
 // create new capsule from form
-let createCapsule = (capsuleForm, user_id) => {
+let createCapsule = (capsuleForm, user) => {
   fetch(CAPSULES_URL, {
     method: 'POST',
     headers: {
@@ -493,7 +494,7 @@ let createCapsule = (capsuleForm, user_id) => {
       name: capsuleForm['capsulename'].value,
       season: capsuleForm['selSeason'].value,
       style: capsuleForm['selStyle'].value,
-      user_id: user_id
+      user_id: user.id
     })
   }).then(resp => resp.json()).then(capsule => {
     document.getElementById('add-capsule-modal').style.display = 'none'
@@ -551,6 +552,7 @@ function fetchAllArticles(capsule) {
 }
 
 let renderCarousel = (allArticles, capsule) => {
+  document.getElementById('bottom-container').querySelector('h3').style.display = 'block'
   let carouselDiv = document.getElementById('carousel-container')
   carouselDiv.innerHTML = ''
   allArticles.forEach(article => {
