@@ -895,11 +895,11 @@ let dressOutfit = function (capsuleItems) {
   let accessories = []
   let outerwear = []
   capsuleItems.forEach(item => {
-    if (item.category === 'dress') {
+    if (item.category.toLowerCase() === 'dress') {
       dresses.push(item)
-    } else if (item.category === 'accessory') {
+    } else if (item.category.toLowerCase() === 'accessory') {
       accessories.push(item)
-    } else if (item.category === 'outerwear') {
+    } else if (item.category.toLowerCase() === 'outerwear') {
       outerwear.push(item)
     }
   })
@@ -925,7 +925,6 @@ let showOutfit = function (myOutfit) {
   let h1 = document.createElement('h1')
   h1.innerText = '#OOTD'
   contentDiv.appendChild(h1)
-
   myOutfit.forEach(article => {
     let img = document.createElement('img')
     img.setAttribute('src', article.image)
@@ -935,7 +934,7 @@ let showOutfit = function (myOutfit) {
 
 //return random article from a category
 function randomarticle(articles) {
-  if (articles.length > 1) {
+  if (articles.length >= 1) {
     return articles[Math.floor(Math.random() * articles.length)]
   } else {
     return false
