@@ -519,8 +519,7 @@ function clearCapsuleDiv() {
 let getRandomOutfit = function(capsule) {
   fetchArticles(capsule).then(contents => {
     dressCheck(contents)
-  })
-  
+  })    
 }
 
 // check if capsule has a dress
@@ -536,21 +535,52 @@ let dressCheck = function(contents)  {
     noDressOutfit(capsuleItems)
   } else {
     let whichOutfit = getRandomInt(2)
-    console.log(whichOutfit)
-    // dressOutfit(capsuleItems)
+    if (whichOutfit === 0) {
+      dressOutfit(capsuleItems)
+    } else {
+      noDressOutfit(capsuleItems)
+    }
   }
 }
 
-
+// generate random NON-dress-based outfit
 let noDressOutfit = function(capsuleItems) {
-  console.log('no dresses')
+  let bottoms = []
+  let tops = []
+  let sweaters = []
+  let accessories = []
+  let outerwear = []
+  
+  capsuleItems.forEach(item => {
+    if (item.category === 'pants' || item.category === 'skirt' || item.category === 'jeans') {
+      bottoms.push(item)
+    } else if (item.category === 'top') {
+      tops.push(item)
+    } else if (item.category === 'sweater') {
+      sweaters.push(item)
+    } else if (item.category === 'accessory') {
+      accessories.push(item)
+    } else if (item.category === 'outerwear') {
+      outerwear.push(item)
+    }
+  })
+
+  let bottomChoice  = randomarticle(bottoms)
+  let topChoice = randomarticle(tops)
+  let sweaterChoice = randomarticle(sweaters)
+  let accessoryChoice = randomarticle(accessories)
+  let outerwearChoice = randomarticle(outerwear)
+  
+  let myOutfit = [bottomChoice, topChoice, sweaterChoice, accessoryChoice, outerwearChoice]
+  showOutfit(myOutfit)
 }
 
 // generate random dress-based outfit
 let dressOutfit = function(capsuleItems) {
-  dresses = []
-  accessories = []
-  outerwear = []
+  let dresses = []
+  let accessories = []
+  let outerwear = []
+
   capsuleItems.forEach(item => {
     if (item.category === 'dress') {
       dresses.push(item)
@@ -559,14 +589,19 @@ let dressOutfit = function(capsuleItems) {
     } else if (item.category === 'outerwear') {
       outerwear.push(item)
     }
-  });
+  })
+
   let dressChoice = randomarticle(dresses)
   let accessoryChoice = randomarticle(accessories)
   let outerwearChoice = randomarticle(outerwear)
 
-  console.log(dressChoice)
-  console.log(accessoryChoice)
-  console.log(outerwearChoice)
+  let myOutfit = [dressChoice, accessoryChoice, outerwearChoice]
+  showOutfit(myOutfit)
+}
+
+// show the random outfit
+let showOutfit = function(myOutfit) {
+  console.log(myOutfit)
 }
 
 //return random article from a category
