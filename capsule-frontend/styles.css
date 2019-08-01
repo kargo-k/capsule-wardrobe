@@ -183,7 +183,7 @@ header .subtitle {
 #update-user-modal, #add-article-modal, #edit-capsule-modal, #add-capsule-modal, #show-add-article-modal {
   background-color: rgba(118, 190, 208, .75); /* blue w/ opacity */
 }
-#add-article-modal,#add-capsule-modal input, select {
+#add-article-modal,#add-capsule-modal,#edit-capsule-modal input, select {
   min-width: 180px;
   margin: 5px 0;
 }
@@ -210,11 +210,10 @@ div.form {
   padding: 6px;
   width: 100%;
 }
-#add-article input {
+#add-article,#edit-capsule-modal input {
   display: inline;
 }
-#add-article label {
-  display: inline;
+#add-article,#edit-capsule-modal label {
   padding-left: 10px;
 }
 .modal-content > div {
@@ -222,6 +221,14 @@ div.form {
 }
 .modal-content input {
   display: block;
+}
+.modal-content input[type="radio"] {
+  margin-left: 20px;
+  padding-left: 20px;
+}
+.modal-content p {
+  display: block;
+  margin-bottom: 0;
 }
 /* The Close Button */
 .close {

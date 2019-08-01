@@ -393,10 +393,9 @@ let renderEditCapsuleForm = (modalContents, capsule) => {
   input.name = 'capsulename'
   input.placeholder = 'Capsule Title'
   input.value = capsule.name
-  let label = document.createElement('label')
-  label.setAttribute('for', 'capsulename')
-  label.innerText = 'Capsule Title: '
-  form.appendChild(label)
+  let p = document.createElement('p')
+  p.innerText = 'Capsule Title: '
+  form.appendChild(p)
   form.appendChild(input)
 
   input = document.createElement('input')
@@ -404,10 +403,9 @@ let renderEditCapsuleForm = (modalContents, capsule) => {
   input.name = 'style'
   input.placeholder = 'Style Description'
   input.value = capsule.style
-  label = document.createElement('label')
-  label.setAttribute('for', 'style')
-  label.innerText = 'Style Description: '
-  form.appendChild(label)
+  p = document.createElement('p')
+  p.innerText = 'Style Description: '
+  form.appendChild(p)
   form.appendChild(input)
 
   let seasons = ['Winter', 'Spring', 'Summer', 'Fall', 'Rainy', 'Dry']
