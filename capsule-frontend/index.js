@@ -354,13 +354,6 @@ let viewCapsule = capsule => {
     }
   })
 
-
-  let articleForm = document.getElementById('add-article')
-  articleForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    addArticle(articleForm, capsule)
-  })
-
   // 'random outfit' button
   let randomBtn = document.createElement('button')
   randomBtn.innerText = 'Outfit of the Day'
@@ -835,14 +828,14 @@ function clearCapsuleDiv() {
 
 
 // create random outfit
-let getRandomOutfit = function(capsule) {
+let getRandomOutfit = function (capsule) {
   fetchArticles(capsule).then(contents => {
     dressCheck(contents)
-  })    
+  })
 }
 
 // check if capsule has a dress
-let dressCheck = function(contents)  {
+let dressCheck = function (contents) {
   let capsuleItems = contents[1]
   let dressArray = []
   capsuleItems.forEach(item => {
@@ -863,13 +856,13 @@ let dressCheck = function(contents)  {
 }
 
 // generate random NON-dress-based outfit
-let noDressOutfit = function(capsuleItems) {
+let noDressOutfit = function (capsuleItems) {
   let bottoms = []
   let tops = []
   let sweaters = []
   let accessories = []
   let outerwear = []
-  
+
   capsuleItems.forEach(item => {
     if (item.category === 'pants' || item.category === 'skirt' || item.category === 'jeans') {
       bottoms.push(item)
@@ -884,18 +877,18 @@ let noDressOutfit = function(capsuleItems) {
     }
   })
 
-  let bottomChoice  = randomarticle(bottoms)
+  let bottomChoice = randomarticle(bottoms)
   let topChoice = randomarticle(tops)
   let sweaterChoice = randomarticle(sweaters)
   let accessoryChoice = randomarticle(accessories)
   let outerwearChoice = randomarticle(outerwear)
-  
+
   let myOutfit = [bottomChoice, topChoice, sweaterChoice, accessoryChoice, outerwearChoice]
   showOutfit(myOutfit)
 }
 
 // generate random dress-based outfit
-let dressOutfit = function(capsuleItems) {
+let dressOutfit = function (capsuleItems) {
   let dresses = []
   let accessories = []
   let outerwear = []
@@ -919,7 +912,7 @@ let dressOutfit = function(capsuleItems) {
 }
 
 // show the random outfit
-let showOutfit = function(myOutfit) {
+let showOutfit = function (myOutfit) {
   let modal = document.getElementById('random-outfit-modal')
   modal.style.display = 'block'
   window.onclick = function (e) {
@@ -929,6 +922,7 @@ let showOutfit = function(myOutfit) {
   }
 
   let contentDiv = document.getElementById('outfit-images-container')
+  contentDiv.innerHTML = ""
   myOutfit.forEach(article => {
     let img = document.createElement('img')
     img.setAttribute('src', article.image)
