@@ -176,8 +176,7 @@ let renderUpdateUserForm = (modalContents, user) => {
   input.type = 'text'
   input.name = 'username'
   input.placeholder = 'Username'
-  let label = document.createElement('label')
-  label.setAttribute('for', 'username')
+  let label = document.createElement('p')
   label.innerText = 'Username: '
   form.appendChild(label)
   form.appendChild(input)
@@ -186,8 +185,7 @@ let renderUpdateUserForm = (modalContents, user) => {
   input.type = 'text'
   input.name = 'location'
   input.placeholder = 'Location'
-  label = document.createElement('label')
-  label.setAttribute('for', 'location')
+  label = document.createElement('p')
   label.innerText = 'Location: '
   form.appendChild(label)
   form.appendChild(input)
@@ -354,18 +352,19 @@ let viewCapsule = capsule => {
     }
   })
 
-  // 'random outfit' button
-  let randomBtn = document.createElement('button')
-  randomBtn.innerText = 'Outfit of the Day'
-  btnList.appendChild(randomBtn)
-  randomBtn.addEventListener('click', function (e) {
-    getRandomOutfit(capsule)
-  })
-
   let subTitle = document.createElement('div')
   subTitle.className = 'subtitle'
   document.getElementById('add-article-div').appendChild(subTitle)
   subTitle.innerHTML = `Season: ${capsule.season} // Style: ${capsule.style}`
+
+  // 'random outfit' button
+  let randomBtn = document.createElement('button')
+  randomBtn.id = 'ootd-btn'
+  randomBtn.innerText = '#OOTD'
+  document.getElementById('add-article-div').appendChild(randomBtn)
+  randomBtn.addEventListener('click', function (e) {
+    getRandomOutfit(capsule)
+  })
 
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
@@ -475,19 +474,25 @@ function renderArticleForm(modalContents, capsule) {
   desc.type = 'text'
   desc.name = 'articlename'
   desc.placeholder = 'Description'
+  let label = document.createElement('p')
+  label.innerText = 'Description: '
+  form.append(label)
   form.appendChild(desc)
 
   let imgURL = document.createElement('input')
   imgURL.type = 'text'
   imgURL.name = 'image'
   imgURL.placeholder = 'Image URL Here'
+  label = document.createElement('p')
+  label.innerText = 'Image URL: '
+  form.append(label)
   form.appendChild(imgURL)
 
   let categories = ['Top', 'Sweater', 'Skirt', 'Dress', 'Jeans', 'Pants', 'Accessory', 'Other']
   let btn
   let btnlabel
 
-  let label = document.createElement('p')
+  label = document.createElement('p')
   label.innerText = 'Select a Category'
   form.appendChild(label)
 
@@ -919,15 +924,20 @@ let showOutfit = function (myOutfit) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
-  }
 
-  let contentDiv = document.getElementById('outfit-images-container')
-  contentDiv.innerHTML = ""
-  myOutfit.forEach(article => {
-    let img = document.createElement('img')
-    img.setAttribute('src', article.image)
-    contentDiv.appendChild(img)
-  });
+    let contentDiv = modal.querySelector('div.modal-content')
+    contentDiv.innerHTML = ""
+
+    let h1 = document.createElement('h1')
+    h1.innerText = '#OOTD'
+    contentDiv.appendChild(h1)
+
+    myOutfit.forEach(article => {
+      let img = document.createElement('img')
+      img.setAttribute('src', article.image)
+      contentDiv.appendChild(img)
+    });
+  }
 }
 
 
