@@ -676,21 +676,86 @@ let removeArticle = (article, capsule) => {
 
 // show new capsule form
 let showNewCapsuleForm = user => {
-  let capsuleForm = document.getElementById('add-capsule')
+
   let modal = document.getElementById('add-capsule-modal')
-  let span = modal.getElementsByClassName('close')[0]
+  let modalContents = modal.querySelector('div.modal-content')
+  modalContents.innerHTML = ''
+
   modal.style.display = 'block'
-  span.onclick = function () {
-    modal.style.display = 'none'
-  }
+
   window.onclick = function (e) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
   }
-  capsuleForm.addEventListener('submit', function (e) {
+
+  let div = document.createElement('div')
+  let h1 = document.createElement('h1')
+  h1.innerText = 'create a new capsule'
+  div.appendChild(h1)
+  modalContents.appendChild(div)
+
+  div = document.createElement('div')
+  div.className = 'form'
+  modalContents.appendChild(div)
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div.appendChild(span)
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
+  let form = document.createElement('form')
+  form.id = 'add-capsule'
+  div.appendChild(form)
+
+  let input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'capsulename'
+  input.placeholder = 'Capsule Title'
+  let p = document.createElement('p')
+  p.innerText = 'Capsule Title: '
+  form.appendChild(p)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'style'
+  input.placeholder = 'Style Description'
+  p = document.createElement('p')
+  p.innerText = 'Style Description: '
+  form.appendChild(p)
+  form.appendChild(input)
+
+  let seasons = ['Winter', 'Spring', 'Summer', 'Fall', 'Rainy', 'Dry']
+  let btn
+  label = document.createElement('p')
+  label.innerText = 'Select a Season'
+  form.appendChild(label)
+
+  seasons.forEach(season => {
+    btn = document.createElement('input')
+    btn.name = 'selSeason'
+    btn.type = 'radio'
+    btn.id = season
+    btn.value = season
+    label = document.createElement('label')
+    label.setAttribute('for', season)
+    label.innerText = season
+    form.appendChild(btn)
+    form.appendChild(label)
+    form.appendChild(document.createElement('br'))
+  })
+
+  input = document.createElement('input')
+  input.type = 'submit'
+  input.className = 'form-submit-button'
+  form.appendChild(input)
+
+  form.addEventListener('submit', function (e) {
     e.preventDefault()
-    createCapsule(capsuleForm, user)
+    createCapsule(form, user)
     fetchCapsules(user)
   })
 }
@@ -706,7 +771,7 @@ let createCapsule = (capsuleForm, user) => {
     body: JSON.stringify({
       name: capsuleForm['capsulename'].value,
       season: capsuleForm['selSeason'].value,
-      style: capsuleForm['selStyle'].value,
+      style: capsuleForm['style'].value,
       user_id: user.id
     })
   }).then(resp => resp.json()).then(capsule => {
