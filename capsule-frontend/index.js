@@ -834,8 +834,7 @@ function clearCapsuleDiv() {
 
 // create random outfit
 let getRandomOutfit = function (capsule) {
-  console.log('inside get random outfit')
-  return fetchArticles(capsule).then(contents => {
+  fetchArticles(capsule).then(contents => {
     dressCheck(contents)
   })
 }
@@ -895,7 +894,6 @@ let dressOutfit = function (capsuleItems) {
   let dresses = []
   let accessories = []
   let outerwear = []
-
   capsuleItems.forEach(item => {
     if (item.category === 'dress') {
       dresses.push(item)
@@ -920,20 +918,19 @@ let showOutfit = function (myOutfit) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
-
-    let contentDiv = modal.querySelector('div.modal-content')
-    contentDiv.innerHTML = ""
-
-    let h1 = document.createElement('h1')
-    h1.innerText = '#OOTD'
-    contentDiv.appendChild(h1)
-
-    myOutfit.forEach(article => {
-      let img = document.createElement('img')
-      img.setAttribute('src', article.image)
-      contentDiv.appendChild(img)
-    });
   }
+  let contentDiv = modal.querySelector('div.modal-content')
+  contentDiv.innerHTML = ""
+
+  let h1 = document.createElement('h1')
+  h1.innerText = '#OOTD'
+  contentDiv.appendChild(h1)
+
+  myOutfit.forEach(article => {
+    let img = document.createElement('img')
+    img.setAttribute('src', article.image)
+    contentDiv.appendChild(img)
+  });
 }
 
 //return random article from a category
