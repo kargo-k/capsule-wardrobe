@@ -601,8 +601,22 @@ let dressOutfit = function(capsuleItems) {
 
 // show the random outfit
 let showOutfit = function(myOutfit) {
-  console.log(myOutfit)
+  let modal = document.getElementById('random-outfit-modal')
+  modal.style.display = 'block'
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = 'none'
+    }
+  }
+
+  let contentDiv = document.getElementById('outfit-images-container')
+  myOutfit.forEach(article => {
+    let img = document.createElement('img')
+    img.setAttribute('src', article.image)
+    contentDiv.appendChild(img)
+  });
 }
+
 
 //return random article from a category
 function randomarticle(articles) {
