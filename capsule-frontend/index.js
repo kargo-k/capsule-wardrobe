@@ -366,6 +366,16 @@ let viewCapsule = capsule => {
     getRandomOutfit(capsule)
   })
 
+  let subTitle = document.createElement('div')
+  subTitle.className = 'subtitle'
+  document.getElementById('add-article-div').appendChild(subTitle)
+  subTitle.innerHTML = `Season: ${capsule.season} // Style: ${capsule.style}`
+  let articleTotal = document.createElement('div')
+  currentCount(capsule).then(count =>{
+    articleTotal.innerText = `${count} / 33 Articles`
+  })
+  document.getElementById('add-article-div').appendChild(articleTotal)
+
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
   fetchAllArticles(capsule)
@@ -831,6 +841,18 @@ function clearCapsuleDiv() {
   document.getElementById('add-article-div').innerHTML = ""
 }
 
+let currentCount = function (capsule) {
+  return fetchArticles(capsule).then(contents => {
+    let returnValue = countArticles(contents)
+    return returnValue
+  })
+}
+
+let countArticles = function (contents) {
+  let capsuleItems = contents[1]
+  let runningTotal = capsuleItems.length
+  return runningTotal
+}
 
 // create random outfit
 let getRandomOutfit = function (capsule) {
