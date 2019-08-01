@@ -210,7 +210,13 @@ div.form {
   padding: 6px;
   width: 100%;
 }
-
+#add-article input {
+  display: inline;
+}
+#add-article label {
+  display: inline;
+  padding-left: 10px;
+}
 .modal-content > div {
   padding: 6px;
 }

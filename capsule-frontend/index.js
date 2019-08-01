@@ -257,6 +257,7 @@ let viewCapsule = capsule => {
       }
     }
   })
+
   let editCapsuleForm = document.getElementById('edit-capsule')
   editCapsuleForm.addEventListener('submit', function (e) {
     e.preventDefault()
@@ -286,23 +287,20 @@ let viewCapsule = capsule => {
   addBtn.addEventListener('click', function (e) {
     if (articleCount < 33) {
       let modal = document.getElementById('add-article-modal')
-      let span = modal.getElementsByClassName('close')[0]
+      // let span = modal.getElementsByClassName('close')[0]
       modal.style.display = 'block'
-      span.onclick = function () {
-        modal.style.display = 'none'
-      }
+      // span.onclick = function () {
+      //   modal.style.display = 'none'
+      // }
       window.onclick = function (e) {
         if (e.target == modal) {
           modal.style.display = 'none'
         }
       }
-      let articleForm = document.getElementById('add-article')
-      articleForm.addEventListener('submit', function (e) {
-        e.preventDefault()
-        console.log('addarticle event')
-        createArticle(articleForm, capsule)
-        articleForm.reset()
-      })
+      let modalContents = modal.querySelector('div.modal-content')
+      modalContents.innerHTML = ""
+      renderArticleForm(modalContents, capsule)
+
     } else {
       let modal = document.getElementById('capsule-full-modal')
       let span = modal.getElementsByClassName('close')[0]
@@ -329,6 +327,72 @@ let viewCapsule = capsule => {
   fetchAllArticles(capsule)
 }
 
+// rendering the article form
+function renderArticleForm(modalContents, capsule) {
+  let div1 = document.createElement('div')
+  modalContents.appendChild(div1)
+  let h1 = document.createElement('h1')
+  h1.innerText = 'add your own article'
+  div1.appendChild(h1)
+
+  let div2 = document.createElement('div')
+  modalContents.appendChild(div2)
+  div2.className = 'form'
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div2.appendChild(span)
+  let form = document.createElement('form')
+  form.id = 'add-article'
+  div2.appendChild(form)
+
+  let desc = document.createElement('input')
+  desc.type = 'text'
+  desc.name = 'articlename'
+  desc.placeholder = 'Description'
+  form.appendChild(desc)
+
+  let imgURL = document.createElement('input')
+  imgURL.type = 'text'
+  imgURL.name = 'image'
+  imgURL.placeholder = 'Image URL Here'
+  form.appendChild(imgURL)
+
+  let categories = ['Top', 'Sweater', 'Skirt', 'Dress', 'Jeans', 'Pants', 'Accessory', 'Other']
+  let btn
+  let btnlabel
+
+  let label = document.createElement('p')
+  label.innerText = 'Select a Category'
+  form.appendChild(label)
+
+  categories.forEach(category => {
+    btn = document.createElement('input')
+    btn.name = 'selCategory'
+    btn.type = 'radio'
+    btn.id = category
+    btn.value = category
+    btnlabel = document.createElement('label')
+    btnlabel.setAttribute('for', category)
+    btnlabel.innerText = category
+    form.appendChild(btn)
+    form.appendChild(btnlabel)
+    form.appendChild(document.createElement('br'))
+  })
+
+  let submitBtn = document.createElement('input')
+  submitBtn.type = 'submit'
+  submitBtn.className = 'form-submit-button'
+  form.appendChild(submitBtn)
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    console.log(e)
+    console.log('create an article now')
+    createArticle(form, capsule)
+  })
+}
+
 //////!-------FETCHING A CAPSULE'S ARTICLES -------///////
 let fetchArticles = capsule => {
   return fetch(CAPSULES_URL + `/${capsule.id}`)
@@ -345,7 +409,7 @@ let sortArticles = capsule => {
       img.setAttribute('src', article.image)
       img.addEventListener('click', function (e) { showArticle(article, capsule) })
 
-      switch (article.category) {
+      switch (article.category.toLowerCase()) {
         case "top":
           div = document.getElementById('tops')
           div.appendChild(img)
@@ -370,10 +434,6 @@ let sortArticles = capsule => {
           div = document.getElementById('jeans')
           div.appendChild(img)
           break;
-        // case "shoes":
-        //   div = document.getElementById('shoes')
-        //   div.appendChild(img)
-        //   break;
         case "accessory":
           div = document.getElementById('accessories')
           div.appendChild(img)
