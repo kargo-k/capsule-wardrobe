@@ -2,21 +2,60 @@ BASE_URL = 'http://localhost:3000'
 USERS_URL = `${BASE_URL}/users`
 CAPSULES_URL = `${BASE_URL}/capsules`
 ARTICLES_URL = `${BASE_URL}/articles`
+SUBTITLE = 'a tool for visualizing and building your capsule wardrobe'
 
 document.addEventListener("DOMContentLoaded", function () {
   // show login modal on page load 
-  let loginForm = document.getElementById('login')
+  // let loginForm = document.getElementById('login')
   let modal = document.getElementById('login-modal')
   modal.style.display = 'block'
-  // adding event listener to the submit button on login form
-  loginForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    let username = loginForm['username'].value
-    loginForm['username'].value = ""
-    checkUser(username)
-    modal.style.display = 'none'
-  })
+  let modalContent = modal.querySelector('div.modal-content')
+  createLoginModalContents(modalContent)
 });
+
+// creates the login modal
+function createLoginModalContents(modalContent) {
+
+  let div1 = document.createElement('div')
+  modalContent.appendChild(div1)
+  let title = document.createElement('h1')
+  div1.appendChild(title)
+  title.innerText = 'capsule'
+  let subtitleDiv = document.createElement('div')
+  subtitleDiv.className = 'subtitle'
+  subtitleDiv.innerText = SUBTITLE
+  div1.appendChild(subtitleDiv)
+  let div2 = document.createElement('div')
+  modalContent.appendChild(div2)
+  let p = document.createElement('p')
+  p.id = 'form-description'
+  p.innerText = 'Welcome! Enter your username below to view your capsules.'
+  div2.appendChild(p)
+
+  let form = document.createElement('form')
+  form.id = 'login'
+  div2.appendChild(form)
+
+  let usernameInput = document.createElement('input')
+  usernameInput.type = 'text'
+  usernameInput.name = 'username'
+  usernameInput.placeholder = 'Username'
+  form.appendChild(usernameInput)
+
+  let submitBtn = document.createElement('input')
+  submitBtn.type = 'submit'
+  submitBtn.className = 'form-submit-button'
+  form.appendChild(submitBtn)
+
+  // adding event listener to the submit button on login form
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    let username = form['username'].value
+    form['username'].value = ""
+    checkUser(username)
+    document.getElementById('login-modal').style.display = 'none'
+  })
+}
 
 //////!------- USER CRUD -------///////
 // Check if username exists, if yes, show user's page, if no, create account
@@ -99,20 +138,68 @@ let showUser = user => {
 // update user method
 let updateUser = user => {
   let modal = document.getElementById('update-user-modal')
-  let span = modal.getElementsByClassName('close')[0]
   modal.style.display = 'block'
-  span.onclick = function () {
-    modal.style.display = 'none'
-  }
   window.onclick = function (e) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
   }
-  let updateForm = document.getElementById('update-user')
-  updateForm['username'].value = user.username
-  updateForm['location'].value = user.location
-  updateForm.addEventListener('submit', function (e) {
+  let modalContents = modal.querySelector('div.modal-content')
+  modalContents.innerHTML = ""
+  renderUpdateUserForm(modalContents, user)
+}
+
+let renderUpdateUserForm = (modalContents, user) => {
+
+  let div = document.createElement('div')
+  let h1 = document.createElement('h1')
+  h1.innerText = 'update your profile'
+  div.appendChild(h1)
+  modalContents.appendChild(div)
+
+  div = document.createElement('div')
+  div.className = 'form'
+  modalContents.appendChild(div)
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div.appendChild(span)
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
+  let form = document.createElement('form')
+  form.id = 'update-user'
+  div.appendChild(form)
+
+  let input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'username'
+  input.placeholder = 'Username'
+  let label = document.createElement('label')
+  label.setAttribute('for', 'username')
+  label.innerText = 'Username: '
+  form.appendChild(label)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'location'
+  input.placeholder = 'Location'
+  label = document.createElement('label')
+  label.setAttribute('for', 'location')
+  label.innerText = 'Location: '
+  form.appendChild(label)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'submit'
+  input.className = 'form-submit-button'
+  form.appendChild(input)
+
+  form['username'].value = user.username
+  form['location'].value = user.location
+  form.addEventListener('submit', function (e) {
     e.preventDefault()
     patchUser(user)
   })
@@ -207,22 +294,16 @@ let viewCapsule = capsule => {
   btnList.appendChild(editBtn)
   editBtn.addEventListener('click', function (e) {
     let modal = document.getElementById('edit-capsule-modal')
-    let span = modal.getElementsByClassName('close')[0]
-    document.getElementById('capsule-name-field').value = capsule.name
     modal.style.display = 'block'
-    span.onclick = function () {
-      modal.style.display = 'none'
-    }
+    let modalContents = modal.querySelector('div.modal-content')
+
     window.onclick = function (e) {
       if (e.target == modal) {
         modal.style.display = 'none'
       }
     }
-  })
-  let editCapsuleForm = document.getElementById('edit-capsule')
-  editCapsuleForm.addEventListener('submit', function (e) {
-    e.preventDefault()
-    editCapsule(editCapsuleForm, capsule)
+    modalContents.innerHTML = ""
+    renderEditCapsuleForm(modalContents, capsule)
   })
 
   // 'delete capsule' button
@@ -248,22 +329,16 @@ let viewCapsule = capsule => {
   addBtn.addEventListener('click', function (e) {
     if (articleCount < 33) {
       let modal = document.getElementById('add-article-modal')
-      let span = modal.getElementsByClassName('close')[0]
       modal.style.display = 'block'
-      span.onclick = function () {
-        modal.style.display = 'none'
-      }
       window.onclick = function (e) {
         if (e.target == modal) {
           modal.style.display = 'none'
         }
       }
-      let articleForm = document.getElementById('add-article')
-      articleForm.addEventListener('submit', function (e) {
-        e.preventDefault()
-        createArticle(articleForm, capsule)
-        articleForm.reset()
-      })
+      let modalContents = modal.querySelector('div.modal-content')
+      modalContents.innerHTML = ""
+      renderArticleForm(modalContents, capsule)
+
     } else {
       let modal = document.getElementById('capsule-full-modal')
       let span = modal.getElementsByClassName('close')[0]
@@ -286,8 +361,151 @@ let viewCapsule = capsule => {
 
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
-
   fetchAllArticles(capsule)
+}
+
+// render edit capsule form here
+let renderEditCapsuleForm = (modalContents, capsule) => {
+
+  let div = document.createElement('div')
+  let h1 = document.createElement('h1')
+  h1.innerText = `edit ${capsule.name} capsule`
+  div.appendChild(h1)
+  modalContents.appendChild(div)
+
+  div = document.createElement('div')
+  div.className = 'form'
+  modalContents.appendChild(div)
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div.appendChild(span)
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
+  let form = document.createElement('form')
+  form.id = 'edit-capsule'
+  div.appendChild(form)
+
+  let input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'capsulename'
+  input.placeholder = 'Capsule Title'
+  input.value = capsule.name
+  let p = document.createElement('p')
+  p.innerText = 'Capsule Title: '
+  form.appendChild(p)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'style'
+  input.placeholder = 'Style Description'
+  input.value = capsule.style
+  p = document.createElement('p')
+  p.innerText = 'Style Description: '
+  form.appendChild(p)
+  form.appendChild(input)
+
+  let seasons = ['Winter', 'Spring', 'Summer', 'Fall', 'Rainy', 'Dry']
+  let btn
+  label = document.createElement('p')
+  label.innerText = 'Select a Season'
+  form.appendChild(label)
+
+  seasons.forEach(season => {
+    btn = document.createElement('input')
+    btn.name = 'selSeason'
+    btn.type = 'radio'
+    btn.id = season
+    btn.value = season
+    label = document.createElement('label')
+    label.setAttribute('for', season)
+    label.innerText = season
+    form.appendChild(btn)
+    form.appendChild(label)
+    form.appendChild(document.createElement('br'))
+  })
+
+  input = document.createElement('input')
+  input.type = 'submit'
+  input.className = 'form-submit-button'
+  form.appendChild(input)
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    editCapsule(form, capsule)
+  })
+}
+
+// rendering the article form
+function renderArticleForm(modalContents, capsule) {
+  let div1 = document.createElement('div')
+  modalContents.appendChild(div1)
+  let h1 = document.createElement('h1')
+  h1.innerText = 'add your own article'
+  div1.appendChild(h1)
+
+  let div2 = document.createElement('div')
+  modalContents.appendChild(div2)
+  div2.className = 'form'
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div2.appendChild(span)
+
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
+  let form = document.createElement('form')
+  form.id = 'add-article'
+  div2.appendChild(form)
+
+  let desc = document.createElement('input')
+  desc.type = 'text'
+  desc.name = 'articlename'
+  desc.placeholder = 'Description'
+  form.appendChild(desc)
+
+  let imgURL = document.createElement('input')
+  imgURL.type = 'text'
+  imgURL.name = 'image'
+  imgURL.placeholder = 'Image URL Here'
+  form.appendChild(imgURL)
+
+  let categories = ['Top', 'Sweater', 'Skirt', 'Dress', 'Jeans', 'Pants', 'Accessory', 'Other']
+  let btn
+  let btnlabel
+
+  let label = document.createElement('p')
+  label.innerText = 'Select a Category'
+  form.appendChild(label)
+
+  categories.forEach(category => {
+    btn = document.createElement('input')
+    btn.name = 'selCategory'
+    btn.type = 'radio'
+    btn.id = category
+    btn.value = category
+    btnlabel = document.createElement('label')
+    btnlabel.setAttribute('for', category)
+    btnlabel.innerText = category
+    form.appendChild(btn)
+    form.appendChild(btnlabel)
+    form.appendChild(document.createElement('br'))
+  })
+
+  let submitBtn = document.createElement('input')
+  submitBtn.type = 'submit'
+  submitBtn.className = 'form-submit-button'
+  form.appendChild(submitBtn)
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault()
+    createArticle(form, capsule)
+  })
 }
 
 //////!-------FETCHING A CAPSULE'S ARTICLES -------///////
@@ -306,7 +524,7 @@ let sortArticles = capsule => {
       img.setAttribute('src', article.image)
       img.addEventListener('click', function (e) { showArticle(article, capsule) })
 
-      switch (article.category) {
+      switch (article.category.toLowerCase()) {
         case "top":
           div = document.getElementById('tops')
           div.appendChild(img)
@@ -331,10 +549,6 @@ let sortArticles = capsule => {
           div = document.getElementById('jeans')
           div.appendChild(img)
           break;
-        // case "shoes":
-        //   div = document.getElementById('shoes')
-        //   div.appendChild(img)
-        //   break;
         case "accessory":
           div = document.getElementById('accessories')
           div.appendChild(img)
@@ -343,6 +557,9 @@ let sortArticles = capsule => {
           div = document.getElementById('outerwear')
           div.appendChild(img)
           break;
+        default:
+          div = document.getElementById('other')
+          div.appendChild(img)
       }
     })
     return articleCount
@@ -404,7 +621,7 @@ let showArticle = (article, capsule) => {
   })
 }
 
-// ! ---------------- show add article from collection modal
+// ! ------ show add article from collection modal
 let showAddArticle = (article, capsule) => {
   let modal = document.getElementById('show-add-article-modal')
   modal.style.display = 'block'
@@ -459,22 +676,86 @@ let removeArticle = (article, capsule) => {
 
 // show new capsule form
 let showNewCapsuleForm = user => {
-  let capsuleForm = document.getElementById('add-capsule')
+
   let modal = document.getElementById('add-capsule-modal')
-  let span = modal.getElementsByClassName('close')[0]
+  let modalContents = modal.querySelector('div.modal-content')
+  modalContents.innerHTML = ''
+
   modal.style.display = 'block'
-  span.onclick = function () {
-    modal.style.display = 'none'
-  }
+
   window.onclick = function (e) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
   }
-  capsuleForm.addEventListener('submit', function (e) {
+
+  let div = document.createElement('div')
+  let h1 = document.createElement('h1')
+  h1.innerText = 'create a new capsule'
+  div.appendChild(h1)
+  modalContents.appendChild(div)
+
+  div = document.createElement('div')
+  div.className = 'form'
+  modalContents.appendChild(div)
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div.appendChild(span)
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
+  let form = document.createElement('form')
+  form.id = 'add-capsule'
+  div.appendChild(form)
+
+  let input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'capsulename'
+  input.placeholder = 'Capsule Title'
+  let p = document.createElement('p')
+  p.innerText = 'Capsule Title: '
+  form.appendChild(p)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'style'
+  input.placeholder = 'Style Description'
+  p = document.createElement('p')
+  p.innerText = 'Style Description: '
+  form.appendChild(p)
+  form.appendChild(input)
+
+  let seasons = ['Winter', 'Spring', 'Summer', 'Fall', 'Rainy', 'Dry']
+  let btn
+  label = document.createElement('p')
+  label.innerText = 'Select a Season'
+  form.appendChild(label)
+
+  seasons.forEach(season => {
+    btn = document.createElement('input')
+    btn.name = 'selSeason'
+    btn.type = 'radio'
+    btn.id = season
+    btn.value = season
+    label = document.createElement('label')
+    label.setAttribute('for', season)
+    label.innerText = season
+    form.appendChild(btn)
+    form.appendChild(label)
+    form.appendChild(document.createElement('br'))
+  })
+
+  input = document.createElement('input')
+  input.type = 'submit'
+  input.className = 'form-submit-button'
+  form.appendChild(input)
+
+  form.addEventListener('submit', function (e) {
     e.preventDefault()
-    createCapsule(capsuleForm, user)
-    fetchCapsules(user)
+    createCapsule(form, user)
   })
 }
 
@@ -489,11 +770,12 @@ let createCapsule = (capsuleForm, user) => {
     body: JSON.stringify({
       name: capsuleForm['capsulename'].value,
       season: capsuleForm['selSeason'].value,
-      style: capsuleForm['selStyle'].value,
+      style: capsuleForm['style'].value,
       user_id: user.id
     })
   }).then(resp => resp.json()).then(capsule => {
     document.getElementById('add-capsule-modal').style.display = 'none'
+    fetchCapsules(user)
     viewCapsule(capsule)
   })
 }
@@ -510,7 +792,7 @@ let editCapsule = (editCapsuleForm, capsule) => {
       id: capsule.id,
       name: editCapsuleForm['capsulename'].value,
       season: editCapsuleForm['selSeason'].value,
-      style: editCapsuleForm['selStyle'].value,
+      style: editCapsuleForm['style'].value,
       user_id: capsule.user_id
     })
   }).then(resp => resp.json()).then(capsule => {
