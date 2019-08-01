@@ -756,7 +756,6 @@ let showNewCapsuleForm = user => {
   form.addEventListener('submit', function (e) {
     e.preventDefault()
     createCapsule(form, user)
-    fetchCapsules(user)
   })
 }
 
@@ -776,6 +775,7 @@ let createCapsule = (capsuleForm, user) => {
     })
   }).then(resp => resp.json()).then(capsule => {
     document.getElementById('add-capsule-modal').style.display = 'none'
+    fetchCapsules(user)
     viewCapsule(capsule)
   })
 }
