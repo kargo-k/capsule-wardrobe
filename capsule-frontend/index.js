@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     checkUser(username)
     modal.style.display = 'none'
   })
-
 });
 
 //////!------- USER CRUD -------///////
@@ -198,7 +197,6 @@ let viewCapsule = capsule => {
   let capsuleHeader = document.getElementById('capsule-header-menu')
   let capH3 = capsuleHeader.querySelector('h3')
   capH3.innerText = capsule.name
-
 
   // 'edit capsule' button
   let editBtn = document.createElement('button')
@@ -397,14 +395,12 @@ let showArticle = (article, capsule) => {
   img.setAttribute('src', article.image)
   contentDiv.appendChild(img)
 
-
   let removeBtn = document.createElement('button')
   removeBtn.innerText = 'Remove from Capsule'
   detailsDiv.appendChild(removeBtn)
 
   removeBtn.addEventListener('click', function (e) {
     removeArticle(article, capsule)
-
   })
 }
 
@@ -524,7 +520,6 @@ let editCapsule = (editCapsuleForm, capsule) => {
   })
 }
 
-
 // function to clear the capsule div every time a new capsule is selected, created, or a new user logs in
 function clearCapsuleDiv() {
   let articleImgDiv = document.getElementById('show-article-imgs')
@@ -535,7 +530,6 @@ function clearCapsuleDiv() {
       node.innerText = ""
     }
   })
-
 
   document.getElementById('capsule-header-menu').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
 
@@ -566,7 +560,6 @@ let renderCarousel = (allArticles, capsule) => {
       showAddArticle(article, capsule)
     })
   })
-
 }
 
 // !-------adds existing article to a capsule
