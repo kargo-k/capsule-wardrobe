@@ -176,8 +176,7 @@ let renderUpdateUserForm = (modalContents, user) => {
   input.type = 'text'
   input.name = 'username'
   input.placeholder = 'Username'
-  let label = document.createElement('label')
-  label.setAttribute('for', 'username')
+  let label = document.createElement('p')
   label.innerText = 'Username: '
   form.appendChild(label)
   form.appendChild(input)
@@ -186,8 +185,7 @@ let renderUpdateUserForm = (modalContents, user) => {
   input.type = 'text'
   input.name = 'location'
   input.placeholder = 'Location'
-  label = document.createElement('label')
-  label.setAttribute('for', 'location')
+  label = document.createElement('p')
   label.innerText = 'Location: '
   form.appendChild(label)
   form.appendChild(input)
@@ -354,10 +352,16 @@ let viewCapsule = capsule => {
     }
   })
 
+  let subTitle = document.createElement('div')
+  subTitle.className = 'subtitle'
+  document.getElementById('add-article-div').appendChild(subTitle)
+  subTitle.innerHTML = `Season: ${capsule.season} // Style: ${capsule.style}`
+
   // 'random outfit' button
   let randomBtn = document.createElement('button')
-  randomBtn.innerText = 'Outfit of the Day'
-  btnList.appendChild(randomBtn)
+  randomBtn.id = 'ootd-btn'
+  randomBtn.innerText = '#OOTD'
+  document.getElementById('add-article-div').appendChild(randomBtn)
   randomBtn.addEventListener('click', function (e) {
     getRandomOutfit(capsule)
   })
@@ -480,19 +484,25 @@ function renderArticleForm(modalContents, capsule) {
   desc.type = 'text'
   desc.name = 'articlename'
   desc.placeholder = 'Description'
+  let label = document.createElement('p')
+  label.innerText = 'Description: '
+  form.append(label)
   form.appendChild(desc)
 
   let imgURL = document.createElement('input')
   imgURL.type = 'text'
   imgURL.name = 'image'
   imgURL.placeholder = 'Image URL Here'
+  label = document.createElement('p')
+  label.innerText = 'Image URL: '
+  form.append(label)
   form.appendChild(imgURL)
 
   let categories = ['Top', 'Sweater', 'Skirt', 'Dress', 'Jeans', 'Pants', 'Accessory', 'Other']
   let btn
   let btnlabel
 
-  let label = document.createElement('p')
+  label = document.createElement('p')
   label.innerText = 'Select a Category'
   form.appendChild(label)
 
@@ -856,7 +866,7 @@ let dressCheck = function (contents) {
   let capsuleItems = contents[1]
   let dressArray = []
   capsuleItems.forEach(item => {
-    if (item.category === 'dress') {
+    if (item.category.toLowerCase() === 'dress') {
       dressArray.push(item)
     }
   });
@@ -894,13 +904,10 @@ let noDressOutfit = function (capsuleItems) {
     }
   })
 
-  let bottomChoice = randomarticle(bottoms)
-  let topChoice = randomarticle(tops)
-  let sweaterChoice = randomarticle(sweaters)
-  let accessoryChoice = randomarticle(accessories)
-  let outerwearChoice = randomarticle(outerwear)
+  let randoms = [randomarticle(bottoms), randomarticle(tops), randomarticle(sweaters), randomarticle(outerwear), randomarticle(accessories)]
 
-  let myOutfit = [bottomChoice, topChoice, sweaterChoice, accessoryChoice, outerwearChoice]
+  let myOutfit = randoms.filter(choice => !!choice)
+
   showOutfit(myOutfit)
 }
 
@@ -909,22 +916,19 @@ let dressOutfit = function (capsuleItems) {
   let dresses = []
   let accessories = []
   let outerwear = []
-
   capsuleItems.forEach(item => {
-    if (item.category === 'dress') {
+    if (item.category.toLowerCase() === 'dress') {
       dresses.push(item)
-    } else if (item.category === 'accessory') {
+    } else if (item.category.toLowerCase() === 'accessory') {
       accessories.push(item)
-    } else if (item.category === 'outerwear') {
+    } else if (item.category.toLowerCase() === 'outerwear') {
       outerwear.push(item)
     }
   })
 
-  let dressChoice = randomarticle(dresses)
-  let accessoryChoice = randomarticle(accessories)
-  let outerwearChoice = randomarticle(outerwear)
+  let randoms = [randomarticle(dresses), randomarticle(accessories), randomarticle(outerwear)]
 
-  let myOutfit = [dressChoice, accessoryChoice, outerwearChoice]
+  let myOutfit = randoms.filter(choice => !!choice)
   showOutfit(myOutfit)
 }
 
@@ -937,9 +941,12 @@ let showOutfit = function (myOutfit) {
       modal.style.display = 'none'
     }
   }
-
-  let contentDiv = document.getElementById('outfit-images-container')
+  let contentDiv = modal.querySelector('div.modal-content')
   contentDiv.innerHTML = ""
+
+  let h1 = document.createElement('h1')
+  h1.innerText = '#OOTD'
+  contentDiv.appendChild(h1)
   myOutfit.forEach(article => {
     let img = document.createElement('img')
     img.setAttribute('src', article.image)
@@ -947,10 +954,13 @@ let showOutfit = function (myOutfit) {
   });
 }
 
-
 //return random article from a category
 function randomarticle(articles) {
-  return articles[Math.floor(Math.random() * articles.length)]
+  if (articles.length >= 1) {
+    return articles[Math.floor(Math.random() * articles.length)]
+  } else {
+    return false
+  }
 }
 
 //generate random number (0 or 1) to determine if random outfit will be dress-based or not
@@ -1002,4 +1012,3 @@ let addArticle = (article, capsule) => {
     document.getElementById('show-add-article-modal').style.display = 'none'
   })
 }
-
