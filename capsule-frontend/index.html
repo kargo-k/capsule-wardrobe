@@ -48,29 +48,23 @@
         <span class='article' id='outerwear'></span>
         <span class='article' id='accessories'></span>
         <span class='article' id='shoes'></span>
+        <span class='article' id='other'></span>
       </div>
     </div>
 
+    <!-- carousel container here -->
 
-
+    <div id='bottom-container'>
+      <h3>browse our collection</h3>
+      <div id='carousel-container'></div>
+    </div>
 
     <!-- ALL MODALS BELOW THIS LINE -->
     <!-- LOGIN MODAL -->
     <div id='login-modal' class='modal'>
-      <div class="modal-content">
-        <div>
-          <h1>capsule</h1>
-          <div class='subtitle'>a tool for visualizing and building your capsule wardrobe</div>
-        </div>
-        <div>
-          <p id='form-description'>Welcome! Enter your username below to view your capsules.</p>
-          <form id='login'>
-            <input type='text' name='username' placeholder='Username'>
-            <input type='submit' class='form-submit-button'>
-          </form>
-        </div>
-      </div>
+      <div class="modal-content"></div>
     </div>
+
     <!-- NEW USER MODAL -->
     <div id='new-user-modal' class='modal'>
       <div class="modal-content">
@@ -90,96 +84,22 @@
       </div>
     </div>
 
-    <!--------- UPDATE USER MODAL --------->
+    <!-- UPDATE USER MODAL -->
     <div id='update-user-modal' class='modal'>
-      <div class='modal-content'>
-        <div>
-          <h1>update your profile</h1>
-        </div>
-        <div class='form'><span class='close'>&times;</span>
-          <form id='update-user'>
-            <label>Username: </label><br><input type='text' name='username' placeholder='Username'><br>
-            <label>Location: </label><br><input type='text' name='location' placeholder='City, State'><br>
-            <input type='submit' class='form-submit-button'>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- ADD CAPSULE MODAL -->
-    <div id='add-capsule-modal' class='modal'>
-      <div class='modal-content'>
-        <div>
-          <h1>create a new capsule</h1>
-        </div>
-        <div>
-          <span class='close'>&times;</span>
-          <form id='add-capsule'>
-            <label>Capsule Name: </label>
-            <br>
-            <input type='text' name='capsulename' placeholder='Capsule name'>
-            <br>
-            <label>Season: </label>
-            <br>
-            <select id='selSeason'>
-              <option value='winter'>Winter</option>
-              <option value='spring'>Spring</option>
-              <option value='summer'>Summer</option>
-              <option value='fall'>Fall</option>
-            </select>
-            <br>
-            <label>Style: </label>
-            <br>
-            <select id='selStyle'>
-              <option value='business'>Business Attire</option>
-              <option value='buscasual'>Business Casual</option>
-              <option value='casual'>Casual</option>
-              <option value='athleisure'>Athleisure</option>
-              <option value='other'>Other</option>
-            </select>
-            <br>
-            <input type='submit' class='form-submit-button'>
-          </form>
-        </div>
-      </div>
-    </div>
-    <!-- EDIT CAPSULE MODAL -->
-    <div id='edit-capsule-modal' class='modal'>
-      <div class='modal-content'>
-        <div>
-          <h1>edit capsule</h1>
-        </div>
-        <div class='form'>
-          <span class='close'>&times;</span>
-          <form id='edit-capsule'>
-            <label>Capsule Name: </label>
-            <br>
-            <input type='text' id='capsule-name-field' name='capsulename' placeholder='Capsule name'> <br>
-            <label>Season: </label>
-            <br>
-            <select id='selSeason'>
-              <option></option>
-              <option value='winter'>Winter</option>
-              <option value='spring'>Spring</option>
-              <option value='summer'>Summer</option>
-              <option value='fall'>Fall</option>
-            </select>
-            <br>
-            <label>Style: </label>
-            <br>
-            <select id='selStyle'>
-              <option></option>
-              <option value='business'>Business Attire</option>
-              <option value='buscasual'>Business Casual</option>
-              <option value='casual'>Casual</option>
-              <option value='athleisure'>Athleisure</option>
-            </select>
-            <input type='submit' class='form-submit-button'>
-          </form>
-        </div>
-      </div>
+      <div class='modal-content'></div>
     </div>
 
-    <!---------  SHOW ARTICLE MODAL ----------->
+    <!-- ADD CAPSULE MODAL -->
+    <div id='add-capsule-modal' class='modal'>
+      <div class='modal-content'></div>
+    </div>
+
+    <!-- EDIT CAPSULE MODAL -->
+    <div id='edit-capsule-modal' class='modal'>
+      <div class='modal-content'></div>
+    </div>
+
+    <!-- SHOW ARTICLE MODAL -->
     <div id='show-article-modal' class='modal'>
       <div class='modal-content'>
         <div id='title-details'>
@@ -191,7 +111,19 @@
       </div>
     </div>
 
-    <!---------  REMOVE ARTICLE MODAL ----------->
+    <!-- SHOW ADD ARTICLE FROM COLLECTION MODAL -->
+    <div id='show-add-article-modal' class='modal'>
+      <div class='modal-content'>
+        <div id='add-title-details'>
+          <h1></h1>
+        </div>
+        <div id='add-article-details'>
+          <span class='close'>&times;</span>
+        </div>
+      </div>
+    </div>
+
+    <!--  REMOVE ARTICLE MODAL -->
     <div id='remove-article-modal' class='modal'>
       <div class='modal-content'>
         <span class='close'>&times;</span>
@@ -203,38 +135,9 @@
       </div>
     </div>
 
-    <!---------  ADD ARTICLE MODAL ----------->
+    <!--  ADD ARTICLE MODAL -->
     <div id='add-article-modal' class='modal'>
-      <div class='modal-content'>
-        <div>
-          <h1>add your own article</h1>
-        </div>
-        <div class='form'>
-          <span class='close'>&times;</span>
-          <form id='add-article'>
-            <p></p>
-            <label>Description: </label>
-            <input type='text' name='articlename' placeholder='Description'><br>
-
-            <label>Select Category: </label><select id='selCategory'>
-              <option value='top'>Top</option>
-              <option value='dress'>Dress</option>
-              <option value='skirt'>Skirt</option>
-              <option value='pants'>Pants</option>
-              <option value='jeans'>Jeans</option>
-              <option value='sweater'>Sweater</option>
-              <!-- <option value='shoes'>Shoes</option> -->
-              <option value='accessory'>Accessory</option>
-            </select>
-
-            <br>
-            <label>Image URL: </label>
-            <input type='text' name='image' placeholder='Image URL'>
-
-            <input type='submit' class='form-submit-button'>
-          </form>
-        </div>
-      </div>
+      <div class='modal-content'></div>
     </div>
 
     <!---------  RANDOM OUTFIT MODAL ----------->

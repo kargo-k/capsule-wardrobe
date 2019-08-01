@@ -31,10 +31,14 @@ img {
   max-width: 120px;
   max-height: 120px;
   margin: 5px;
-  border-radius: 10px;
+  border-radius: 5px;
   display: inline;
 }
 #show-article-modal img{
+  max-width: 250px;
+  max-height: 250px;
+}
+#show-add-article-modal img{
   max-width: 250px;
   max-height: 250px;
 }
@@ -95,7 +99,7 @@ header .subtitle {
   margin-left: 10px;
   margin-bottom: 10px;
 }
-#add-article-div .subtitle {
+#add-article-div {
   text-align: center
 }
 #user-bar {
@@ -176,18 +180,14 @@ header .subtitle {
   background-color: rgb(255, 255, 255); /* Fallback color */
   background-color: rgba(118, 190, 208, 1); /* solid blue */
 }
-#update-user-modal, #add-article-modal, #edit-capsule-modal, #add-capsule-modal {
+#update-user-modal, #add-article-modal, #edit-capsule-modal, #add-capsule-modal, #show-add-article-modal {
   background-color: rgba(118, 190, 208, .75); /* blue w/ opacity */
 }
-#add-article-modal input, select {
+#add-article-modal,#add-capsule-modal,#edit-capsule-modal input, select {
   min-width: 180px;
   margin: 5px 0;
 }
-#add-capsule-modal input, select {
-  min-width: 180px;
-  margin: 5px 0;
-}
-#show-article-modal h1 {
+#show-article-modal,#show-add-article-modal h1 {
   font-size: 12pt;
 }
 #edit-capsule-modal input, select {
@@ -210,9 +210,25 @@ div.form {
   padding: 6px;
   width: 100%;
 }
-
+#add-article,#edit-capsule-modal input {
+  display: inline;
+}
+#add-article,#edit-capsule-modal label {
+  padding-left: 10px;
+}
 .modal-content > div {
   padding: 6px;
+}
+.modal-content input {
+  display: block;
+}
+.modal-content input[type="radio"] {
+  margin-left: 20px;
+  padding-left: 20px;
+}
+.modal-content p {
+  display: block;
+  margin-bottom: 0;
 }
 /* The Close Button */
 .close {
@@ -228,4 +244,33 @@ div.form {
   color: #f55d3e;
   text-decoration: none;
   cursor: pointer;
+}
+
+#bottom-container > h3 {
+  font-family: 'Raleway', sans-serif;
+  color: #76bed0;
+  border-top: 2px solid #878e88;
+  margin: 10px 10px 0px 0px;
+  display: none;
+}
+#carousel-container {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  height: 150px;
+  align-items: center
+}
+#carousel-container > div {
+  display: inline;
+  flex: 0 0 auto;
+}
+#carousel-container img {
+  max-width: 100px;
+  max-height: 100px;
+}
+.zoom {
+  transition: transform .2s; /*animation*/
+}
+.zoom:hover {
+  transform: scale(1.5);
 }

@@ -29,4 +29,10 @@ class ArticlesController < ApplicationController
     render json: @article
   end
 
+  def add
+    @article = Article.find(params[:id])
+    @capsule = Capsule.find(params[:capsule_id])
+    @article.capsules << @capsule
+    render json: @capsule
+  end
 end
