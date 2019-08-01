@@ -99,7 +99,7 @@ header .subtitle {
   margin-left: 10px;
   margin-bottom: 10px;
 }
-#add-article-div .subtitle {
+#add-article-div {
   text-align: center
 }
 #user-bar {
@@ -219,6 +219,9 @@ div.form {
 }
 .modal-content > div {
   padding: 6px;
+}
+.modal-content input {
+  display: block;
 }
 /* The Close Button */
 .close {

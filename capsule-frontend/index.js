@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
   createLoginModalContents(modalContent)
 });
 
+// creates the login modal
 function createLoginModalContents(modalContent) {
 
   let div1 = document.createElement('div')
@@ -137,20 +138,68 @@ let showUser = user => {
 // update user method
 let updateUser = user => {
   let modal = document.getElementById('update-user-modal')
-  let span = modal.getElementsByClassName('close')[0]
   modal.style.display = 'block'
-  span.onclick = function () {
-    modal.style.display = 'none'
-  }
   window.onclick = function (e) {
     if (e.target == modal) {
       modal.style.display = 'none'
     }
   }
-  let updateForm = document.getElementById('update-user')
-  updateForm['username'].value = user.username
-  updateForm['location'].value = user.location
-  updateForm.addEventListener('submit', function (e) {
+  let modalContents = modal.querySelector('div.modal-content')
+  modalContents.innerHTML = ""
+  renderUpdateUserForm(modalContents, user)
+}
+
+let renderUpdateUserForm = (modalContents, user) => {
+
+  let div = document.createElement('div')
+  let h1 = document.createElement('h1')
+  h1.innerText = 'update your profile'
+  div.appendChild(h1)
+  modalContents.appendChild(div)
+
+  div = document.createElement('div')
+  div.className = 'form'
+  modalContents.appendChild(div)
+  let span = document.createElement('span')
+  span.className = 'close'
+  span.innerHTML = '&times;'
+  div.appendChild(span)
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
+  let form = document.createElement('form')
+  form.id = 'update-user'
+  div.appendChild(form)
+
+  let input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'username'
+  input.placeholder = 'Username'
+  let label = document.createElement('label')
+  label.setAttribute('for', 'username')
+  label.innerText = 'Username: '
+  form.appendChild(label)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'text'
+  input.name = 'location'
+  input.placeholder = 'Location'
+  label = document.createElement('label')
+  label.setAttribute('for', 'location')
+  label.innerText = 'Location: '
+  form.appendChild(label)
+  form.appendChild(input)
+
+  input = document.createElement('input')
+  input.type = 'submit'
+  input.className = 'form-submit-button'
+  form.appendChild(input)
+
+  form['username'].value = user.username
+  form['location'].value = user.location
+  form.addEventListener('submit', function (e) {
     e.preventDefault()
     patchUser(user)
   })
@@ -287,11 +336,7 @@ let viewCapsule = capsule => {
   addBtn.addEventListener('click', function (e) {
     if (articleCount < 33) {
       let modal = document.getElementById('add-article-modal')
-      // let span = modal.getElementsByClassName('close')[0]
       modal.style.display = 'block'
-      // span.onclick = function () {
-      //   modal.style.display = 'none'
-      // }
       window.onclick = function (e) {
         if (e.target == modal) {
           modal.style.display = 'none'
@@ -323,7 +368,6 @@ let viewCapsule = capsule => {
 
   document.getElementById('add-article-div').appendChild(addBtn)
   sortArticles(capsule)
-
   fetchAllArticles(capsule)
 }
 
@@ -342,6 +386,11 @@ function renderArticleForm(modalContents, capsule) {
   span.className = 'close'
   span.innerHTML = '&times;'
   div2.appendChild(span)
+
+  span.onclick = function () {
+    modalContents.parentNode.style.display = 'none'
+  }
+
   let form = document.createElement('form')
   form.id = 'add-article'
   div2.appendChild(form)
@@ -387,8 +436,6 @@ function renderArticleForm(modalContents, capsule) {
 
   form.addEventListener('submit', function (e) {
     e.preventDefault()
-    console.log(e)
-    console.log('create an article now')
     createArticle(form, capsule)
   })
 }
@@ -506,7 +553,7 @@ let showArticle = (article, capsule) => {
   })
 }
 
-// ! ---------------- show add article from collection modal
+// ! ------ show add article from collection modal
 let showAddArticle = (article, capsule) => {
   let modal = document.getElementById('show-add-article-modal')
   modal.style.display = 'block'
@@ -624,7 +671,6 @@ let editCapsule = (editCapsuleForm, capsule) => {
 
 // function to clear the capsule div every time a new capsule is selected, created, or a new user logs in
 function clearCapsuleDiv() {
-  console.log('clear the capsule!')
   let articleImgDiv = document.getElementById('show-article-imgs')
   let innerDivs = articleImgDiv.childNodes
 
