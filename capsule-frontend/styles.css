@@ -230,11 +230,12 @@ div.form {
   cursor: pointer;
 }
 
-#bottom-container h3 {
+#bottom-container > h3 {
   font-family: 'Raleway', sans-serif;
   color: #76bed0;
   border-top: 2px solid #878e88;
   margin: 10px 10px 0px 0px;
+  display: none;
 }
 #carousel-container {
   display: flex;
