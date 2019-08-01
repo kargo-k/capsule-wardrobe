@@ -283,6 +283,14 @@ let viewCapsule = capsule => {
     addArticle(articleForm, capsule)
   })
 
+  // 'random outfit' button
+  let randomBtn = document.createElement('button')
+  randomBtn.innerText = 'Outfit of the Day'
+  btnList.appendChild(randomBtn)
+  randomBtn.addEventListener('click', function (e) {
+    getRandomOutfit(capsule)
+  })
+
   let subTitle = document.createElement('div')
   subTitle.className = 'subtitle'
   document.getElementById('add-article-div').appendChild(subTitle)
@@ -505,5 +513,69 @@ function clearCapsuleDiv() {
   document.getElementById('capsule-header-menu').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
 
   document.getElementById('add-article-div').innerHTML = ""
+}
+
+// create random outfit
+let getRandomOutfit = function(capsule) {
+  fetchArticles(capsule).then(contents => {
+    dressCheck(contents)
+  })
+  
+}
+
+// check if capsule has a dress
+let dressCheck = function(contents)  {
+  let capsuleItems = contents[1]
+  let dressArray = []
+  capsuleItems.forEach(item => {
+    if (item.category === 'dress') {
+      dressArray.push(item)
+    }
+  });
+  if (dressArray.length === 0) {
+    noDressOutfit(capsuleItems)
+  } else {
+    let whichOutfit = getRandomInt(2)
+    console.log(whichOutfit)
+    // dressOutfit(capsuleItems)
+  }
+}
+
+
+let noDressOutfit = function(capsuleItems) {
+  console.log('no dresses')
+}
+
+// generate random dress-based outfit
+let dressOutfit = function(capsuleItems) {
+  dresses = []
+  accessories = []
+  outerwear = []
+  capsuleItems.forEach(item => {
+    if (item.category === 'dress') {
+      dresses.push(item)
+    } else if (item.category === 'accessory') {
+      accessories.push(item)
+    } else if (item.category === 'outerwear') {
+      outerwear.push(item)
+    }
+  });
+  let dressChoice = randomarticle(dresses)
+  let accessoryChoice = randomarticle(accessories)
+  let outerwearChoice = randomarticle(outerwear)
+
+  console.log(dressChoice)
+  console.log(accessoryChoice)
+  console.log(outerwearChoice)
+}
+
+//return random article from a category
+function randomarticle(articles) {
+  return articles[Math.floor(Math.random() * articles.length)]
+}
+
+//generate random number (0 or 1) to determine if random outfit will be dress-based or not
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max))
 }
 
