@@ -834,7 +834,8 @@ function clearCapsuleDiv() {
 
 // create random outfit
 let getRandomOutfit = function (capsule) {
-  fetchArticles(capsule).then(contents => {
+  console.log('inside get random outfit')
+  return fetchArticles(capsule).then(contents => {
     dressCheck(contents)
   })
 }
@@ -844,7 +845,7 @@ let dressCheck = function (contents) {
   let capsuleItems = contents[1]
   let dressArray = []
   capsuleItems.forEach(item => {
-    if (item.category === 'dress') {
+    if (item.category.toLowerCase() === 'dress') {
       dressArray.push(item)
     }
   });
@@ -882,13 +883,10 @@ let noDressOutfit = function (capsuleItems) {
     }
   })
 
-  let bottomChoice = randomarticle(bottoms)
-  let topChoice = randomarticle(tops)
-  let sweaterChoice = randomarticle(sweaters)
-  let accessoryChoice = randomarticle(accessories)
-  let outerwearChoice = randomarticle(outerwear)
+  let randoms = [randomarticle(bottoms), randomarticle(tops), randomarticle(sweaters), randomarticle(outerwear), randomarticle(accessories)]
 
-  let myOutfit = [bottomChoice, topChoice, sweaterChoice, accessoryChoice, outerwearChoice]
+  let myOutfit = randoms.filter(choice => !!choice)
+
   showOutfit(myOutfit)
 }
 
@@ -908,11 +906,9 @@ let dressOutfit = function (capsuleItems) {
     }
   })
 
-  let dressChoice = randomarticle(dresses)
-  let accessoryChoice = randomarticle(accessories)
-  let outerwearChoice = randomarticle(outerwear)
+  let randoms = [randomarticle(dresses), randomarticle(accessories), randomarticle(outerwear)]
 
-  let myOutfit = [dressChoice, accessoryChoice, outerwearChoice]
+  let myOutfit = randoms.filter(choice => !!choice)
   showOutfit(myOutfit)
 }
 
@@ -940,10 +936,13 @@ let showOutfit = function (myOutfit) {
   }
 }
 
-
 //return random article from a category
 function randomarticle(articles) {
-  return articles[Math.floor(Math.random() * articles.length)]
+  if (articles.length > 1) {
+    return articles[Math.floor(Math.random() * articles.length)]
+  } else {
+    return false
+  }
 }
 
 //generate random number (0 or 1) to determine if random outfit will be dress-based or not
@@ -995,4 +994,3 @@ let addArticle = (article, capsule) => {
     document.getElementById('show-add-article-modal').style.display = 'none'
   })
 }
-
