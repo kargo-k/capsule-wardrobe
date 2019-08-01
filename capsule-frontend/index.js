@@ -354,6 +354,21 @@ let viewCapsule = capsule => {
     }
   })
 
+
+  let articleForm = document.getElementById('add-article')
+  articleForm.addEventListener('submit', function (e) {
+    e.preventDefault()
+    addArticle(articleForm, capsule)
+  })
+
+  // 'random outfit' button
+  let randomBtn = document.createElement('button')
+  randomBtn.innerText = 'Outfit of the Day'
+  btnList.appendChild(randomBtn)
+  randomBtn.addEventListener('click', function (e) {
+    getRandomOutfit(capsule)
+  })
+
   let subTitle = document.createElement('div')
   subTitle.className = 'subtitle'
   document.getElementById('add-article-div').appendChild(subTitle)
@@ -818,6 +833,121 @@ function clearCapsuleDiv() {
   document.getElementById('add-article-div').innerHTML = ""
 }
 
+
+// create random outfit
+let getRandomOutfit = function(capsule) {
+  fetchArticles(capsule).then(contents => {
+    dressCheck(contents)
+  })    
+}
+
+// check if capsule has a dress
+let dressCheck = function(contents)  {
+  let capsuleItems = contents[1]
+  let dressArray = []
+  capsuleItems.forEach(item => {
+    if (item.category === 'dress') {
+      dressArray.push(item)
+    }
+  });
+  if (dressArray.length === 0) {
+    noDressOutfit(capsuleItems)
+  } else {
+    let whichOutfit = getRandomInt(2)
+    if (whichOutfit === 0) {
+      dressOutfit(capsuleItems)
+    } else {
+      noDressOutfit(capsuleItems)
+    }
+  }
+}
+
+// generate random NON-dress-based outfit
+let noDressOutfit = function(capsuleItems) {
+  let bottoms = []
+  let tops = []
+  let sweaters = []
+  let accessories = []
+  let outerwear = []
+  
+  capsuleItems.forEach(item => {
+    if (item.category === 'pants' || item.category === 'skirt' || item.category === 'jeans') {
+      bottoms.push(item)
+    } else if (item.category === 'top') {
+      tops.push(item)
+    } else if (item.category === 'sweater') {
+      sweaters.push(item)
+    } else if (item.category === 'accessory') {
+      accessories.push(item)
+    } else if (item.category === 'outerwear') {
+      outerwear.push(item)
+    }
+  })
+
+  let bottomChoice  = randomarticle(bottoms)
+  let topChoice = randomarticle(tops)
+  let sweaterChoice = randomarticle(sweaters)
+  let accessoryChoice = randomarticle(accessories)
+  let outerwearChoice = randomarticle(outerwear)
+  
+  let myOutfit = [bottomChoice, topChoice, sweaterChoice, accessoryChoice, outerwearChoice]
+  showOutfit(myOutfit)
+}
+
+// generate random dress-based outfit
+let dressOutfit = function(capsuleItems) {
+  let dresses = []
+  let accessories = []
+  let outerwear = []
+
+  capsuleItems.forEach(item => {
+    if (item.category === 'dress') {
+      dresses.push(item)
+    } else if (item.category === 'accessory') {
+      accessories.push(item)
+    } else if (item.category === 'outerwear') {
+      outerwear.push(item)
+    }
+  })
+
+  let dressChoice = randomarticle(dresses)
+  let accessoryChoice = randomarticle(accessories)
+  let outerwearChoice = randomarticle(outerwear)
+
+  let myOutfit = [dressChoice, accessoryChoice, outerwearChoice]
+  showOutfit(myOutfit)
+}
+
+// show the random outfit
+let showOutfit = function(myOutfit) {
+  let modal = document.getElementById('random-outfit-modal')
+  modal.style.display = 'block'
+  window.onclick = function (e) {
+    if (e.target == modal) {
+      modal.style.display = 'none'
+    }
+  }
+
+  let contentDiv = document.getElementById('outfit-images-container')
+  myOutfit.forEach(article => {
+    let img = document.createElement('img')
+    img.setAttribute('src', article.image)
+    contentDiv.appendChild(img)
+  });
+}
+
+
+//return random article from a category
+function randomarticle(articles) {
+  return articles[Math.floor(Math.random() * articles.length)]
+}
+
+//generate random number (0 or 1) to determine if random outfit will be dress-based or not
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max))
+}
+
+
 //! POPULATING THE CAROUSEL WITH DIVS FOR EACH ARTICLE
 function fetchAllArticles(capsule) {
   fetch(ARTICLES_URL)
@@ -861,3 +991,4 @@ let addArticle = (article, capsule) => {
     document.getElementById('show-add-article-modal').style.display = 'none'
   })
 }
+
