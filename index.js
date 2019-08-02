@@ -1,4 +1,4 @@
-BASE_URL = 'http://localhost:3000'
+BASE_URL = 'https://hidden-headland-56055.herokuapp.com/'
 USERS_URL = `${BASE_URL}/users`
 CAPSULES_URL = `${BASE_URL}/capsules`
 ARTICLES_URL = `${BASE_URL}/articles`
