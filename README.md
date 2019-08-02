@@ -1,4 +1,5 @@
 # Capsule
+https://kargo-k.github.io/capsule-wardrobe/index.html
 https://cthomasw.github.io/capsule-wardrobe/
 
 Module 3 Project for Flatiron School's Software Engineering Immersive
