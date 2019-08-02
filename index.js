@@ -113,6 +113,7 @@ let fetchUsers = () => {
 
 // show user's page
 let showUser = user => {
+  document.getElementById('capsule-header-menu').innerHTML = '<h3>Select a capsule from the bar above to view it. Or, make a new capsule!</h3>'
   let userH = document.getElementById('user-name')
   userH.innerText = user.username
 
